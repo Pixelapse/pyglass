@@ -1,9 +1,18 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
 *.py[cod]
 
-# C extensions
+# C extensions #
+################
 *.so
 
-# Packages
+# Packages #
+############
 *.egg
 *.egg-info
 dist
@@ -19,18 +28,40 @@ lib
 lib64
 __pycache__
 
-# Installer logs
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Installer logs #
+##################
 pip-log.txt
 
-# Unit test / coverage reports
-.coverage
-.tox
-nosetests.xml
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
 
-# Translations
-*.mo
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
 
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
+# XCode User Prefs #
+####################
+xcuserdata/
+*.mode1v3
+*.pbxuser
+*.xcuserstate
+*.xccheckout
