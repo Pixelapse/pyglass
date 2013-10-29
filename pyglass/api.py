@@ -17,11 +17,3 @@ def exportPreview(srcPath, maxWidth=2640, maxHeight=1520, format="png"):
       return None
 
     return destPath
-
-import os
-destPath = exportPreview(
-  os.path.expanduser('~/Desktop/Scratchpad/Preview Scripts/Test File.sketch')
-)
-print u'destPath: %s' % (destPath)
-
-# QuickGlass -srcPath "/Users/Vayu/Desktop/Scratchpad/Preview Scripts/Test File.sketch" -destPath "/Users/Vayu/Desktop/outputfile.png" -exportFormat "png"

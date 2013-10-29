@@ -9,7 +9,13 @@ import shutil
 import platform
 
 # Library modules
-from setuptools import setup, find_packages
+try:
+  from setuptools import setup
+except ImportError:
+  from distutils.core import setup
+
+# Package modules
+import pyglass
 
 if sys.version_info[:2] < (2, 7):
   print "Sorry, pyglass requires python version 2.7 or later"
@@ -46,3 +52,20 @@ def xcodebuild():
 rm_tempdirs()
 xcodebuild()
 rm_tempdirs() # Cleanup after ourselves
+
+packages = ['pyglass']
+requires = []
+
+setup(
+  name='pyglass',
+  version=pyglass.__version__,
+  description='Mac OS QuickLook Wrapper',
+  long_description=open('README.md').read(),
+  author='Shravan Reddy',
+  author_email='shravan@pixelapse.com',
+  url="http://github.com/Pixelapse/pyglass",
+  packages=packages,
+  package_data={'': ['LICENSE']},
+  install_requires=requires,
+  license=open('LICENSE').read()
+)

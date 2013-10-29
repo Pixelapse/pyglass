@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """
 pyglass library
 ~~~~~~~~~~~~~~~~~~~~~
@@ -17,6 +18,7 @@ Basic usage:
 :license: MIT, see LICENSE for more details.
 
 """
+
 __title__ = 'pyglass'
 __version__ = '0.0.1'
 __author__ = 'Shravan Reddy'
