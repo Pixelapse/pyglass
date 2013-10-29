@@ -1,26 +1,27 @@
 # -*- coding: utf-8 -*-
 
 # System modules
-import logging
+import tempfile
+import subprocess
+import shlex
 
+def exportPreview(srcPath, maxWidth=2640, maxHeight=1520, format="png"):
+  with tempfile.NamedTemporaryFile(prefix='pyglass', delete=False) as tempfileobj:
+    destPath = tempfileobj.name
 
-# Library modules
-import objc
+    cmd = u'lib/QuickGlass -srcPath "%s" -destPath "%s" -maxWidth %f ' \
+    '-maxHeight %f -exportFormat "%s"' % (srcPath, destPath, maxWidth, maxHeight, format)
+    return_val = subprocess.call(shlex.split(cmd))
 
-# Project modules
-# from pyglass import utils
+    if return_val != 0:
+      return None
 
-# # Enable logging
-# utils.initConsoleLogging()
+    return destPath
 
-NSObject = objc.lookUpClass('NSObject')
-NSAutoreleasePool = objc.lookUpClass('NSAutoreleasePool')
-NSDictionary = objc.lookUpClass('NSDictionary')
-QuickLook = objc.lookUpClass('QuickLook')
+import os
+destPath = exportPreview(
+  os.path.expanduser('~/Desktop/Scratchpad/Preview Scripts/Test File.sketch')
+)
+print u'destPath: %s' % (destPath)
 
-print QuickLook
-class PyGlass(NSObject):
-  def init(self):
-    self = super(PyGlass, self).init()
-    return self
-
+# QuickGlass -srcPath "/Users/Vayu/Desktop/Scratchpad/Preview Scripts/Test File.sketch" -destPath "/Users/Vayu/Desktop/outputfile.png" -exportFormat "png"

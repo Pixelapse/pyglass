@@ -28,13 +28,13 @@ def rm_tempdirs():
 
 def xcodebuild():
   ''' Build & move the QuickGlass binary to lib '''
+  # Build from xcodeproj
   os.chdir('cocoa')
-
   cmd = 'xcodebuild build'
   subprocess.call(shlex.split(cmd))
-
   os.chdir('..')
 
+  # Move the build binary over
   if not os.path.exists('lib'):
     os.mkdir('lib')
 
