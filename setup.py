@@ -21,14 +21,14 @@ if platform.system() != 'Darwin':
 
 def rm_tempdirs():
   ''' Remove temporary build folders '''
-  tempdirs = ['build', 'dist', os.path.join('QuickGlass', 'build')]
+  tempdirs = ['build', 'dist', os.path.join('cocoa', 'build')]
   for tempdir in tempdirs:
     if os.path.exists(tempdir):
       shutil.rmtree(tempdir, ignore_errors=True)
 
 def xcodebuild():
   ''' Build & move the QuickGlass binary to lib '''
-  os.chdir('QuickGlass')
+  os.chdir('cocoa')
 
   cmd = 'xcodebuild build'
   subprocess.call(shlex.split(cmd))
@@ -41,7 +41,7 @@ def xcodebuild():
   if os.path.exists('lib/QuickGlass'):
     os.remove('lib/QuickGlass')
 
-  shutil.move('QuickGlass/build/Release/QuickGlass', 'lib')
+  shutil.move('cocoa/build/Release/QuickGlass', 'lib')
 
 rm_tempdirs()
 xcodebuild()
