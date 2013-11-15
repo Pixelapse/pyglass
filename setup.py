@@ -40,9 +40,13 @@ def xcodebuild():
   subprocess.call(shlex.split(cmd))
   os.chdir('..')
 
+  if not os.path.exists('pyglass/cocoa'):
+    os.mkdir('pyglass/cocoa')
+
   if os.path.exists('pyglass/cocoa/QuickGlass'):
     os.remove('pyglass/cocoa/QuickGlass')
 
+  print 'present working dir: %s' % os.getcwd()
   shutil.move('cocoa/build/Release/QuickGlass', 'pyglass/cocoa/QuickGlass')
 
 
