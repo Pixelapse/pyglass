@@ -10,7 +10,7 @@ import platform
 
 # Library modules
 try:
-  from setuptools import setup
+  from setuptools import setup, find_packages
 except ImportError:
   from distutils.core import setup
 
@@ -40,21 +40,15 @@ def xcodebuild():
   subprocess.call(shlex.split(cmd))
   os.chdir('..')
 
-  # Move the build binary over
-  if not os.path.exists('lib'):
-    os.mkdir('lib')
+  if os.path.exists('pyglass/lib/QuickGlass'):
+    os.remove('pyglass/lib/QuickGlass')
 
-  if os.path.exists('lib/QuickGlass'):
-    os.remove('lib/QuickGlass')
+  shutil.move('cocoa/build/Release/QuickGlass', 'pyglass/lib/QuickGlass')
 
-  shutil.move('cocoa/build/Release/QuickGlass', 'lib')
 
+# Setup
 rm_tempdirs()
 xcodebuild()
-rm_tempdirs() # Cleanup after ourselves
-
-packages = ['pyglass']
-requires = []
 
 setup(
   name='pyglass',
@@ -64,8 +58,11 @@ setup(
   author='Shravan Reddy',
   author_email='shravan@pixelapse.com',
   url="http://github.com/Pixelapse/pyglass",
-  packages=packages,
-  package_data={'': ['LICENSE']},
-  install_requires=requires,
+  packages=find_packages(),
+  package_data={'': ['LICENSE', 'lib/QuickGlass']},
+  include_package_data=True,
+  zip_safe=False,
   license=open('LICENSE').read()
 )
+
+rm_tempdirs()
