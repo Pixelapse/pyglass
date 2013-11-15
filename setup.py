@@ -32,6 +32,18 @@ def rm_tempdirs():
     if os.path.exists(tempdir):
       shutil.rmtree(tempdir, ignore_errors=True)
 
+def mv_lib(src_dir, dest_dir):
+  if not os.path.exists(dest_dir):
+    os.mkdir(dest_dir)
+
+  src_file = os.path.join(src_dir, 'QuickGlass')
+  dest_file = os.path.join(dest_dir, 'QuickGlass')
+
+  if os.path.exists(dest_file):
+    os.remove(dest_file)
+
+  shutil.move(src_file, dest_file)
+
 def xcodebuild():
   ''' Build & move the QuickGlass binary to lib '''
   # Build from xcodeproj
@@ -40,15 +52,7 @@ def xcodebuild():
   subprocess.call(shlex.split(cmd))
   os.chdir('..')
 
-  if not os.path.exists('pyglass/cocoa'):
-    os.mkdir('pyglass/cocoa')
-
-  if os.path.exists('pyglass/cocoa/QuickGlass'):
-    os.remove('pyglass/cocoa/QuickGlass')
-
-  print 'present working dir: %s' % os.getcwd()
-  shutil.move('cocoa/build/Release/QuickGlass', 'pyglass/cocoa/QuickGlass')
-
+  mv_lib('cocoa/build/Release', 'pyglass/lib')
 
 # Setup
 rm_tempdirs()
@@ -63,7 +67,7 @@ setup(
   author_email='shravan@pixelapse.com',
   url="http://github.com/Pixelapse/pyglass",
   packages=find_packages(),
-  package_data={'': ['LICENSE', 'cocoa/QuickGlass']},
+  package_data={'': ['LICENSE', 'lib/QuickGlass']},
   include_package_data=True,
   zip_safe=False,
   license=open('LICENSE').read()
