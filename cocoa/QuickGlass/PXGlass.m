@@ -80,9 +80,7 @@
   return [PXGlass exportPreview:srcPath destPath:destPath maxWidth:width maxHeight:height inFormat:DEFAULT_EXPORT_FORMAT];
 }
 
-// height, width - appropriate export size. Scale is maintained
-// format - optional params
-// returns NSString - path to the written file
+// returns path to the written file
 // returns nil if unable to generate preview
 +(NSString*)exportPreview:(NSString*)srcPath destPath:(NSString*)destPath maxWidth:(float)width maxHeight:(float)height inFormat:(NSString*)format {
   
@@ -131,4 +129,5 @@
   
   return destPath;
 }
+
 @end

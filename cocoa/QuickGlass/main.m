@@ -12,7 +12,7 @@
 int main(int argc, const char * argv[])
 {
 
-  //  QuickGlass -srcPath "/Users/Vayu/Desktop/Scratchpad/Preview Scripts/Test File.sketch" -destPath "/Users/Vayu/Desktop/outputfile.png" -exportFormat "png"
+  //  QuickGlass -srcPath "/Path/To/File/Test File.sketch" -destPath "/Path/To/Dest/Preview.png" -exportFormat "png"
   @autoreleasepool {
       
     NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
@@ -28,11 +28,13 @@ int main(int argc, const char * argv[])
     
     NSLog(@"srcPath: %@ destPath: %@ maxWidth: %f maxHeight: %f exportFormat: %@", srcPath, destPath, maxWidth, maxHeight, exportFormat);
     NSString *previewPath = [PXGlass exportPreview:srcPath destPath:destPath maxWidth:maxWidth maxHeight:maxHeight inFormat:exportFormat];
-    
     NSLog(@"Preview path: %@", previewPath);
-
+    
+    if (previewPath == nil) {
+      return -1;
+    }
       
   }
-    return 0;
+  return 0;
 }
 
