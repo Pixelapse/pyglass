@@ -40,10 +40,10 @@ def xcodebuild():
   subprocess.call(shlex.split(cmd))
   os.chdir('..')
 
-  if os.path.exists('pyglass/lib/QuickGlass'):
-    os.remove('pyglass/lib/QuickGlass')
+  if os.path.exists('pyglass/cocoa/QuickGlass'):
+    os.remove('pyglass/cocoa/QuickGlass')
 
-  shutil.move('cocoa/build/Release/QuickGlass', 'pyglass/lib/QuickGlass')
+  shutil.move('cocoa/build/Release/QuickGlass', 'pyglass/cocoa/QuickGlass')
 
 
 # Setup
@@ -59,7 +59,7 @@ setup(
   author_email='shravan@pixelapse.com',
   url="http://github.com/Pixelapse/pyglass",
   packages=find_packages(),
-  package_data={'': ['LICENSE', 'lib/QuickGlass']},
+  package_data={'': ['LICENSE', 'cocoa/QuickGlass']},
   include_package_data=True,
   zip_safe=False,
   license=open('LICENSE').read()

@@ -25,4 +25,4 @@ __author__ = 'Shravan Reddy'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2013 Pixelapse'
 
-from .api import exportPreview
+from .api import export_preview

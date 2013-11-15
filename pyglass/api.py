@@ -10,7 +10,7 @@ def export_preview(src_path, max_width=2640, max_height=1520, format="png"):
   with tempfile.NamedTemporaryFile(prefix='pyglass', delete=False) as tempfileobj:
     dest_path = tempfileobj.name
 
-    binary_path = os.path.join(os.path.dirname(__file__), 'lib/QuickGlass')
+    binary_path = os.path.join(os.path.dirname(__file__), 'cocoa/QuickGlass')
     cmd = u'%s -srcPath "%s" -destPath "%s" -maxWidth %f -maxHeight %f -exportFormat "%s"' % \
       (binary_path, src_path, dest_path, max_width, max_height, format)
     return_val = subprocess.call(shlex.split(cmd))
