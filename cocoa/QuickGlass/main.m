@@ -9,14 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "PXGlass.h"
 
-int main(int argc, const char * argv[])
-{
+int main(int argc, const char * argv[]) {
 
   //  QuickGlass -srcPath "/Path/To/File/Test File.sketch" -destPath "/Path/To/Dest/Preview.png" -exportFormat "png"
   @autoreleasepool {
-      
+
     NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
-    
+  
     // Required params
     NSString *srcPath = [args stringForKey:@"srcPath"];
     NSString *destPath = [args stringForKey:@"destPath"];
@@ -33,7 +32,7 @@ int main(int argc, const char * argv[])
     if (previewPath == nil) {
       return -1;
     }
-      
+    
   }
   return 0;
 }
