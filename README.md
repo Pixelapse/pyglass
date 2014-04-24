@@ -6,7 +6,7 @@ QuickLook previews from files.
 ## Basic Usage
 
     import pyglass
-    destPath = pyglass.export_preview('design_v1.sketch', max_width=250, max_height=320)
+    destPath = pyglass.export_preview('design_v1.sketch')
 
 ## Requirements
   * Mac OS X 10.7+
