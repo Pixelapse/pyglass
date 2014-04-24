@@ -14,15 +14,15 @@ Basic usage:
    >>> destPath
    /var/folders/fq/xtn_qh1x6c3drpp3ycytx1fr0000gn/T/pyglassY92Xqs
 
-:copyright: (c) 2013 by Pixelapse.
+:copyright: (c) 2014 by Pixelapse.
 :license: MIT, see LICENSE for more details.
 
 """
 
 __title__ = 'pyglass'
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 __author__ = 'Shravan Reddy'
 __license__ = 'MIT'
-__copyright__ = 'Copyright 2013 Pixelapse'
+__copyright__ = 'Copyright 2014 Pixelapse'
 
 from .api import export_preview
