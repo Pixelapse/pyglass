@@ -14,6 +14,9 @@ try:
 except ImportError:
   from distutils.core import setup
 
+from distutils.dir_util import copy_tree
+from distutils.file_util import copy_file
+
 # Package modules
 import pyglass
 
@@ -34,19 +37,6 @@ def rm_tempdirs():
       shutil.rmtree(tempdir, ignore_errors=True)
 
 
-def mv_lib(src_dir, dest_dir):
-  if not os.path.exists(dest_dir):
-    os.mkdir(dest_dir)
-
-  src_file = os.path.join(src_dir, 'QuickGlass')
-  dest_file = os.path.join(dest_dir, 'QuickGlass')
-
-  if os.path.exists(dest_file):
-    os.remove(dest_file)
-
-  shutil.move(src_file, dest_file)
-
-
 def xcodebuild():
   ''' Build & move the QuickGlass binary to lib '''
   # Build from xcodeproj
@@ -55,11 +45,16 @@ def xcodebuild():
   subprocess.call(shlex.split(cmd))
   os.chdir('..')
 
-  mv_lib('cocoa/build/Release', 'pyglass/lib')
 
 # Setup
 rm_tempdirs()
 xcodebuild()
+
+LIB_DIR = 'pyglass/lib'
+
+os.makedirs(LIB_DIR)
+copy_file('cocoa/build/Release/QuickGlass', '%s/QuickGlass' % LIB_DIR)
+copy_tree('lib/SketchTool/', '%s/SketchTool/' % LIB_DIR)
 
 setup(
   name='pyglass',
