@@ -25,12 +25,14 @@ if platform.system() != 'Darwin':
   print "Sorry, pyglass only runs on OS X"
   sys.exit(1)
 
+
 def rm_tempdirs():
   ''' Remove temporary build folders '''
   tempdirs = ['build', 'dist', os.path.join('cocoa', 'build')]
   for tempdir in tempdirs:
     if os.path.exists(tempdir):
       shutil.rmtree(tempdir, ignore_errors=True)
+
 
 def mv_lib(src_dir, dest_dir):
   if not os.path.exists(dest_dir):
@@ -43,6 +45,7 @@ def mv_lib(src_dir, dest_dir):
     os.remove(dest_file)
 
   shutil.move(src_file, dest_file)
+
 
 def xcodebuild():
   ''' Build & move the QuickGlass binary to lib '''

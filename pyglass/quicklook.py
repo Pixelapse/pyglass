@@ -5,10 +5,9 @@ import subprocess
 import shlex
 
 from tempfile import NamedTemporaryFile, mkdtemp
-from os.path import isdir, exists, join, dirname, abspath, basename
+from os.path import isdir, exists, join, basename
 
-GLASS_LIB = join(dirname(abspath(__file__)), 'lib', 'QuickGlass')
-QLMANAGE_LIB = join('/usr', 'bin', 'qlmanage')
+from .settings import QLMANAGE, QUICKGLASS
 
 
 def embedded_preview(src_path):
@@ -36,7 +35,7 @@ def generator_preview(src_path):
     dest_dir = mkdtemp(prefix='pixelapse')
     dest_path = join(dest_dir, '%s.qlpreview' % (src_filename), 'Preview.png')
 
-    cmd = u'%s -p "%s" -o "%s"' % (QLMANAGE_LIB, src_path, dest_dir)
+    cmd = u'%s -p "%s" -o "%s"' % (QLMANAGE, src_path, dest_dir)
     print cmd
     assert(subprocess.call(shlex.split(cmd)) == 0)
 
@@ -60,7 +59,7 @@ def thumbnail_preview(src_path):
       dest_path = tempfileobj.name
 
     cmd = u'%s -srcPath "%s" -destPath "%s" -maxWidth %f -maxHeight %f -exportFormat "%s"' % \
-          (GLASS_LIB, src_path, dest_path, max_width, max_height, export_format)
+          (QUICKGLASS, src_path, dest_path, max_width, max_height, export_format)
     print cmd
     assert(subprocess.call(shlex.split(cmd)) == 0)
 
