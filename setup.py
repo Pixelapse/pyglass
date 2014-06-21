@@ -51,13 +51,16 @@ def xcodebuild():
   os.chdir('..')
 
 
-# Setup
+# Compile and copy over libs
 rm_tempdirs()
 xcodebuild()
 
 os.makedirs(LIB_DIR)
 copy_file('cocoa/build/Release/QuickGlass', '%s/QuickGlass' % LIB_DIR)
 copy_tree('lib/SketchTool/', '%s/SketchTool/' % LIB_DIR)
+
+# Python lib requirements
+requires = ['process']
 
 setup(
   name='pyglass',
@@ -69,6 +72,7 @@ setup(
   url="http://github.com/Pixelapse/pyglass",
   packages=find_packages(),
   package_data={'': ['LICENSE', 'lib/QuickGlass']},
+  install_requires=requires,
   include_package_data=True,
   zip_safe=False,
   license=open('LICENSE').read()
