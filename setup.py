@@ -8,6 +8,8 @@ import subprocess
 import shutil
 import platform
 
+from os.path import join
+
 # Library modules
 try:
   from setuptools import setup, find_packages
@@ -28,10 +30,13 @@ if platform.system() != 'Darwin':
   print "Sorry, pyglass only runs on OS X"
   sys.exit(1)
 
+LIB_DIR = join('pyglass', 'lib')
+BUILD_DIR = join('cocoa', 'build')
+
 
 def rm_tempdirs():
   ''' Remove temporary build folders '''
-  tempdirs = ['build', 'dist', os.path.join('cocoa', 'build')]
+  tempdirs = ['build', 'dist', BUILD_DIR, LIB_DIR]
   for tempdir in tempdirs:
     if os.path.exists(tempdir):
       shutil.rmtree(tempdir, ignore_errors=True)
@@ -49,8 +54,6 @@ def xcodebuild():
 # Setup
 rm_tempdirs()
 xcodebuild()
-
-LIB_DIR = 'pyglass/lib'
 
 os.makedirs(LIB_DIR)
 copy_file('cocoa/build/Release/QuickGlass', '%s/QuickGlass' % LIB_DIR)
