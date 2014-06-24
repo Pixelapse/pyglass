@@ -59,20 +59,18 @@ os.makedirs(LIB_DIR)
 copy_file('cocoa/build/Release/QuickGlass', '%s/QuickGlass' % LIB_DIR)
 copy_tree('lib/SketchTool/', '%s/SketchTool/' % LIB_DIR)
 
-# Python lib requirements
-requires = ['process']
 
 setup(
   name='pyglass',
   version=pyglass.__version__,
+  url='http://github.com/Pixelapse/pyglass',
   description='Mac OS QuickLook Wrapper',
   long_description=open('README.md').read(),
   author='Shravan Reddy',
   author_email='shravan@pixelapse.com',
-  url="http://github.com/Pixelapse/pyglass",
   packages=find_packages(),
   package_data={'': ['LICENSE', 'lib/QuickGlass']},
-  install_requires=requires,
+  install_requires=['process'],
   include_package_data=True,
   zip_safe=False,
   license=open('LICENSE').read()
