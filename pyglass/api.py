@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from . import quicklook
+from . import quicklook, sketch
 
 
 def export_preview(src_path):
