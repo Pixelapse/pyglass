@@ -59,7 +59,7 @@ def xcodebuild():
 
 def copy_vendor_libs():
   ''' Copies third party vendor libs into the module '''
-  copy_tree('%s/' * Dir.Vendor, '%s/' % Dir.LIB)
+  copy_tree('%s/' % Dir.VENDOR, '%s/' % Dir.LIB)
 
 
 def copy_custom_libs():
@@ -73,7 +73,7 @@ def lib_list():
   for (root, dirs, files) in os.walk(Dir.LIB):
     for filename in files:
       root = root.replace('pyglass/', '')
-      lib_list.append(os.path.join(root, filename))
+      lib_list.append(join(root, filename))
   return lib_list
 
 # Compile custom project
