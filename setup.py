@@ -30,46 +30,73 @@ if platform.system() != 'Darwin':
   print "Sorry, pyglass only runs on OS X"
   sys.exit(1)
 
-LIB_DIR = join('pyglass', 'lib')
-BUILD_DIR = join('cocoa', 'build')
+
+class Dir:
+  BUILD = 'build'
+  DIST = 'dist'
+  COCOA = 'cocoa'
+  COCOA_BUILD = join(COCOA, 'build')
+  LIB = join('pyglass', 'lib')  # Destination directory for vendor/custom libs
+  VENDOR = 'vendor'  # Third-party libraries
 
 
 def rm_tempdirs():
   ''' Remove temporary build folders '''
-  tempdirs = ['build', 'dist', BUILD_DIR, LIB_DIR]
+  tempdirs = [Dir.BUILD, Dir.DIST, Dir.COCOA_BUILD, Dir.LIB]
   for tempdir in tempdirs:
     if os.path.exists(tempdir):
       shutil.rmtree(tempdir, ignore_errors=True)
 
 
 def xcodebuild():
-  ''' Build & move the QuickGlass binary to lib '''
+  ''' Build the QuickGlass binary in Release mode '''
   # Build from xcodeproj
-  os.chdir('cocoa')
+  os.chdir(Dir.COCOA)
   cmd = 'xcodebuild build'
   subprocess.call(shlex.split(cmd))
   os.chdir('..')
 
 
-# Compile and copy over libs
+def copy_vendor_libs():
+  ''' Copies third party vendor libs into the module '''
+  copy_tree('%s/' * Dir.Vendor, '%s/' % Dir.LIB)
+
+
+def copy_custom_libs():
+  ''' Copies custom build libs into the module '''
+  copy_file('%s/Release/QuickGlass' % Dir.COCOA_BUILD, '%s/QuickGlass' % Dir.LIB)
+
+
+def lib_list():
+  ''' Returns the contents of 'pyglass/lib' as a list of 'lib/*' items for package_data '''
+  lib_list = []
+  for (root, dirs, files) in os.walk(Dir.LIB):
+    for filename in files:
+      root = root.replace('pyglass/', '')
+      lib_list.append(os.path.join(root, filename))
+  return lib_list
+
+# Compile custom project
 rm_tempdirs()
 xcodebuild()
 
-os.makedirs(LIB_DIR)
-copy_file('cocoa/build/Release/QuickGlass', '%s/QuickGlass' % LIB_DIR)
-copy_tree('lib/SketchTool/', '%s/SketchTool/' % LIB_DIR)
+# Copy over libs into Dir.LIB
+os.makedirs(Dir.LIB)
+copy_custom_libs()
+copy_vendor_libs()
 
+package_libs = lib_list()
 
 setup(
   name='pyglass',
   version=pyglass.__version__,
   url='http://github.com/Pixelapse/pyglass',
-  description='Mac OS QuickLook Wrapper',
+  description='Mac OS X File Preview Generator',
   long_description=open('README.md').read(),
   author='Shravan Reddy',
   author_email='shravan@pixelapse.com',
   packages=find_packages(),
-  package_data={'': ['LICENSE', 'lib/QuickGlass']},
+  package_data={'': package_libs},
   install_requires=['process'],
   include_package_data=True,
   zip_safe=False,
