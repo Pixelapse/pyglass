@@ -3,6 +3,8 @@
 import json
 import logging
 
+from tempfile import mkdtemp
+
 # Library modules
 from process import check_output
 
@@ -22,7 +24,10 @@ def execute(cmd):
     return None
 
 
-def exec_list_cmd(cmd):
+############################################################
+# LIST COMMANDS
+############################################################
+def list_cmd(cmd):
   ''' Execute a `sketchtool list` command and parse the output '''
   result = execute(cmd)
   if not result:
@@ -36,21 +41,44 @@ def exec_list_cmd(cmd):
 
 def list_slices(src_path):
   cmd = [SKETCHTOOL, 'list', 'slices', src_path]
-  return exec_list_cmd(cmd)
+  return list_cmd(cmd)
 
 
 def list_artboards(src_path):
   cmd = [SKETCHTOOL, 'list', 'artboards', src_path]
-  return exec_list_cmd(cmd)
+  return list_cmd(cmd)
 
 
 def list_pages(src_path):
   cmd = [SKETCHTOOL, 'list', 'pages', src_path]
-  return exec_list_cmd(cmd)
+  return list_cmd(cmd)
 
-# def pages_preview(src_path):
-#   try:
-#     check_call()
-#   except Exception as e:
-#     print u'Unable to extract pages: %s' % e
-#     return None
+
+############################################################
+# EXPORT COMMANDS
+############################################################
+def export_pages(src_path, dest_dir=None, export_format=None, scale=None):
+  ''' Exports pages from src_path in dest_dir in given format and scale.
+
+  >>> export_pages('~/example.sketch', dest_dir='~/Desktop/',
+                    export_format=ExportFormat.PNG, scale=1.0)
+
+  :param export_format: one of type ExportFormat
+  :param scale: export scale of type float
+
+  '''
+  cmd = [SKETCHTOOL, 'export', 'pages', src_path]
+
+  if not dest_dir:
+    dest_dir = mkdtemp(prefix='pyglass')
+
+  cmd.extend(['--output=%s' % dest_dir])
+
+  if export_format:
+    cmd.extend(['--formats=\'%s\'' % export_format])
+
+  if scale:
+    cmd.extend(['--scales=\'%s\'' % scale])
+
+  result = execute(cmd)
+  print u'Raw result: %s' % result

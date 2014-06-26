@@ -3,6 +3,15 @@ from .utils import unicode_or_none
 from .parse import parse_artboards, parse_slices
 
 
+class ExportFormat:
+  ''' File format types sketchtool can export '''
+  PNG = 'png'
+  JPG = 'jpg'
+  PDF = 'pdf'
+  EPS = 'eps'
+  SVG = 'svg'
+
+
 class SketchObject(object):
   ''' Base class for any generic Sketch object '''
   def __unicode__(self):
