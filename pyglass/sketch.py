@@ -64,8 +64,8 @@ class Page(SketchExportable):
     super(Page, self).__init__(page_dict)
 
   def __unicode__(self):
-    return u'<Page (id=\'%s\', name=\'%s\', bounds=%s, slices=%s)>' % \
-           (self.id, self.name, self.bounds, self.slices)
+    return u'<Page (id=\'%s\', name=\'%s\', bounds=%s, slices=%s, artboards=%s)>' % \
+           (self.id, self.name, self.bounds, self.slices, self.artboards)
 
   def parse_slices(self, page_dict):
     slices = []
@@ -98,6 +98,7 @@ class Artboard(SketchExportable):
 
   def __unicode__(self):
     return u'<Artboard (id=\'%s\', name=\'%s\', rect=%s)>' % (self.id, self.name, self.rect)
+
 
 def execute(cmd):
   ''' Call cmd and return None if any exception occurs '''
