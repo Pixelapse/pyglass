@@ -8,8 +8,27 @@ from process import check_output
 
 # Project modules
 from .settings import SKETCHTOOL
+from .utils import unicode_or_none
 
 logger = logging.getLogger(__name__)
+
+
+class Bounds(object):
+  def __init__(self, bounds_str):
+    if not bounds_str:
+      return
+
+    bounds_list = [float(num) for num in bounds_str.split(',')]
+
+    self.x, self.y = bounds_list[0], bounds_list[1]
+    self.width, self.height = bounds_list[2], bounds_list[3]
+
+
+class Page(object):
+  def __init__(self, page_dict):
+    self.id = unicode_or_none(page_dict, 'id')
+    self.name = unicode_or_none(page_dict, 'name')
+    self.bounds = Bounds(unicode_or_none(page_dict, 'bounds'))
 
 
 def execute(cmd_list):
