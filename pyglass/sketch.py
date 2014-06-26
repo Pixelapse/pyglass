@@ -4,7 +4,7 @@ import json
 import logging
 
 # Library modules
-from process import call_command
+from process import check_output
 
 # Project modules
 from .settings import SKETCHTOOL
@@ -12,15 +12,28 @@ from .settings import SKETCHTOOL
 logger = logging.getLogger(__name__)
 
 
-def list_slices(src_path):
-  cmd = '%s list slices %s' % (SKETCHTOOL, src_path)
-  print 'Cmd: %s' % cmd
+def execute(cmd_list):
   try:
-    slice_dict = json.loads(call_command(cmd))
-    logger.info('Slice dict; %s' % slice_dict)
+    result_dict = json.loads(check_output(cmd_list))
+    print 'Result dict; %s' % result_dict
   except Exception as e:
-    logger.error(u'Couldnt export slices: %s' % e)
+    print u'Couldnt execute cmd: %s.\nReason: %s' % (cmd_list, e)
     return None
+
+
+def list_slices(src_path):
+  cmd = [SKETCHTOOL, 'list', 'slices', src_path]
+  return execute(cmd)
+
+
+def list_artboards(src_path):
+  cmd = [SKETCHTOOL, 'list', 'artboards', src_path]
+  return execute(cmd)
+
+
+def list_pages(src_path):
+  cmd = [SKETCHTOOL, 'list', 'pages', src_path]
+  return execute(cmd)
 
 # def pages_preview(src_path):
 #   try:
