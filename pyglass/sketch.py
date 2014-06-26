@@ -50,14 +50,20 @@ class Page(SketchObject):
     self.id = unicode_or_none(page_dict, 'id')
     self.name = unicode_or_none(page_dict, 'name')
     self.bounds = Bounds(unicode_or_none(page_dict, 'bounds'))
-    self.slices = []
-    for slice_dict in page_dict['slices']:
-      self.slices.append(Slice(slice_dict))
-
+    self.slices = self.parse_slices(page_dict)
+    
   def __unicode__(self):
     return u'<Page (id=\'%s\', name=\'%s\', bounds=%s, slices=%s)>' % \
            (self.id, self.name, self.bounds, self.slices)
 
+  def parse_slices(self, page_dict):
+    if 'slices' not in page_dict:
+      return []
+
+    slices = []
+    for slice_dict in page_dict['slices']:
+      slices.append(Slice(slice_dict))
+    return slices
 
 class Slice(SketchObject):
   def __init__(self, slice_dict):
@@ -70,6 +76,7 @@ class Slice(SketchObject):
 
 
 def execute(cmd):
+  ''' Call cmd and return None if any exception occurs '''
   try:
     return check_output(cmd)
   except Exception as e:
@@ -78,6 +85,7 @@ def execute(cmd):
 
 
 def exec_list_cmd(cmd):
+  ''' Execute a `sketchtool list` command and parse the output '''
   result = execute(cmd)
   if not result:
     return None
