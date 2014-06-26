@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class SketchObject(object):
+  ''' Base class for any generic Sketch object '''
   def __unicode__(self):
     return u'<SketchObject>'
 
@@ -22,6 +23,16 @@ class SketchObject(object):
 
   def __repr__(self):
     return unicode(self)
+
+
+class SketchExportable(SketchObject):
+  ''' Base class for any exportable Sketch item, i.e. Pages, Artboards, Slices '''
+  def __init__(self, exportable_dict):
+    self.id = unicode_or_none(exportable_dict, 'id')
+    self.name = unicode_or_none(exportable_dict, 'name')
+
+  def __unicode__(self):
+    return u'<SketchExportable (id=\'%s\', name=\'%s\')>' % (self.id, self.name)
 
 
 class Bounds(SketchObject):
@@ -45,35 +56,48 @@ class Rect(SketchObject):
     return u'<Rect (x=%s, y=%s, width=%s, height=%s)>' % (self.x, self.y, self.width, self.height)
 
 
-class Page(SketchObject):
+class Page(SketchExportable):
   def __init__(self, page_dict):
-    self.id = unicode_or_none(page_dict, 'id')
-    self.name = unicode_or_none(page_dict, 'name')
     self.bounds = Bounds(unicode_or_none(page_dict, 'bounds'))
     self.slices = self.parse_slices(page_dict)
-    
+    self.artboards = self.parse_artboards(page_dict)
+    super(Page, self).__init__(page_dict)
+
   def __unicode__(self):
     return u'<Page (id=\'%s\', name=\'%s\', bounds=%s, slices=%s)>' % \
            (self.id, self.name, self.bounds, self.slices)
 
   def parse_slices(self, page_dict):
-    if 'slices' not in page_dict:
-      return []
-
     slices = []
-    for slice_dict in page_dict['slices']:
-      slices.append(Slice(slice_dict))
+    if 'slices' in page_dict:
+      for slice_dict in page_dict['slices']:
+        slices.append(Slice(slice_dict))
     return slices
 
-class Slice(SketchObject):
+  def parse_artboards(self, page_dict):
+    artboards = []
+    if 'artboards' in page_dict:
+      for artboard_dict in page_dict['artboards']:
+        artboards.append(Artboard(artboard_dict))
+    return artboards
+
+
+class Slice(SketchExportable):
   def __init__(self, slice_dict):
-    self.id = unicode_or_none(slice_dict, 'id')
-    self.name = unicode_or_none(slice_dict, 'name')
     self.rect = Rect(slice_dict['rect'])
+    super(Slice, self).__init__(slice_dict)
 
   def __unicode__(self):
     return u'<Slice (id=\'%s\', name=\'%s\', rect=%s)>' % (self.id, self.name, self.rect)
 
+
+class Artboard(SketchExportable):
+  def __init__(self, artboard_dict):
+    self.rect = Rect(artboard_dict['rect'])
+    super(Artboard, self).__init__(artboard_dict)
+
+  def __unicode__(self):
+    return u'<Artboard (id=\'%s\', name=\'%s\', rect=%s)>' % (self.id, self.name, self.rect)
 
 def execute(cmd):
   ''' Call cmd and return None if any exception occurs '''
@@ -90,6 +114,7 @@ def exec_list_cmd(cmd):
   if not result:
     return None
 
+  print u'Raw result: %s' % result
   list_dict = json.loads(result)
   for page_dict in list_dict['pages']:
     page = Page(page_dict)
