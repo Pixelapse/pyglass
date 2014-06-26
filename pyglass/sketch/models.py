@@ -1,16 +1,6 @@
 # -*- coding: utf-8 -*-
-# Default libs
-import json
-import logging
-
-# Library modules
-from process import check_output
-
-# Project modules
-from .settings import SKETCHTOOL
 from .utils import unicode_or_none
-
-logger = logging.getLogger(__name__)
+from .parse import parse_artboards, parse_slices
 
 
 class SketchObject(object):
@@ -59,27 +49,13 @@ class Rect(SketchObject):
 class Page(SketchExportable):
   def __init__(self, page_dict):
     self.bounds = Bounds(unicode_or_none(page_dict, 'bounds'))
-    self.slices = self.parse_slices(page_dict)
-    self.artboards = self.parse_artboards(page_dict)
+    self.slices = parse_slices(page_dict)
+    self.artboards = parse_artboards(page_dict)
     super(Page, self).__init__(page_dict)
 
   def __unicode__(self):
     return u'<Page (id=\'%s\', name=\'%s\', bounds=%s, slices=%s, artboards=%s)>' % \
            (self.id, self.name, self.bounds, self.slices, self.artboards)
-
-  def parse_slices(self, page_dict):
-    slices = []
-    if 'slices' in page_dict:
-      for slice_dict in page_dict['slices']:
-        slices.append(Slice(slice_dict))
-    return slices
-
-  def parse_artboards(self, page_dict):
-    artboards = []
-    if 'artboards' in page_dict:
-      for artboard_dict in page_dict['artboards']:
-        artboards.append(Artboard(artboard_dict))
-    return artboards
 
 
 class Slice(SketchExportable):
@@ -98,47 +74,3 @@ class Artboard(SketchExportable):
 
   def __unicode__(self):
     return u'<Artboard (id=\'%s\', name=\'%s\', rect=%s)>' % (self.id, self.name, self.rect)
-
-
-def execute(cmd):
-  ''' Call cmd and return None if any exception occurs '''
-  try:
-    return check_output(cmd)
-  except Exception as e:
-    print u'Couldnt execute cmd: %s.\nReason: %s' % (cmd, e)
-    return None
-
-
-def exec_list_cmd(cmd):
-  ''' Execute a `sketchtool list` command and parse the output '''
-  result = execute(cmd)
-  if not result:
-    return None
-
-  print u'Raw result: %s' % result
-  list_dict = json.loads(result)
-  for page_dict in list_dict['pages']:
-    page = Page(page_dict)
-    print 'Page: %s' % page
-
-
-def list_slices(src_path):
-  cmd = [SKETCHTOOL, 'list', 'slices', src_path]
-  return exec_list_cmd(cmd)
-
-
-def list_artboards(src_path):
-  cmd = [SKETCHTOOL, 'list', 'artboards', src_path]
-  return exec_list_cmd(cmd)
-
-
-def list_pages(src_path):
-  cmd = [SKETCHTOOL, 'list', 'pages', src_path]
-  return exec_list_cmd(cmd)
-
-# def pages_preview(src_path):
-#   try:
-#     check_call()
-#   except Exception as e:
-#     print u'Unable to extract pages: %s' % e
-#     return None
