@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+# Project modules
 from .utils import unicode_or_none
 from .parse import parse_artboards, parse_slices
 
