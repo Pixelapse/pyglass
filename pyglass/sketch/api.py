@@ -69,10 +69,10 @@ def export_cmd(cmd, dest_dir=None, export_format=None, scale=None):
   cmd.extend(['--output=%s' % dest_dir])
 
   if export_format:
-    cmd.extend(['--formats=\'%s\'' % export_format])
+    cmd.extend(['--formats=%s' % export_format])
 
   if scale:
-    cmd.extend(['--scales=\'%s\'' % scale])
+    cmd.extend(['--scales=%s' % scale])
 
   print u'Executing cmd: %s' % cmd
   result = execute(cmd)
