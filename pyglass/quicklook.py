@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-
+# Default libs
 import shutil
-import subprocess
-import shlex
 
 from tempfile import NamedTemporaryFile, mkdtemp
 from os.path import isdir, exists, join, basename
 
+# Library modules
+from process import check_call
+
+# Project modules
 from .settings import QLMANAGE, QUICKGLASS
 
 
@@ -35,9 +37,9 @@ def generator_preview(src_path):
     dest_dir = mkdtemp(prefix='pyglass')
     dest_path = join(dest_dir, '%s.qlpreview' % (src_filename), 'Preview.png')
 
-    cmd = u'%s -p "%s" -o "%s"' % (QLMANAGE, src_path, dest_dir)
+    cmd = [QLMANAGE, '-p', src_path, '-o', dest_dir]
     print cmd
-    assert(subprocess.call(shlex.split(cmd)) == 0)
+    assert(check_call(cmd) == 0)
 
     assert(exists(dest_path))
     return dest_path
@@ -47,21 +49,19 @@ def generator_preview(src_path):
 
 def thumbnail_preview(src_path):
   """ Returns the path to small thumbnail preview. """
-  return None
-
   try:
     assert(exists(src_path))
 
-    max_width, max_height = 2640, 1520
+    max_width, max_height = '2640', '1520'
     export_format = 'png'
 
     with NamedTemporaryFile(prefix='pyglass', delete=False) as tempfileobj:
       dest_path = tempfileobj.name
 
-    cmd = u'%s -srcPath "%s" -destPath "%s" -maxWidth %f -maxHeight %f -exportFormat "%s"' % \
-          (QUICKGLASS, src_path, dest_path, max_width, max_height, export_format)
+    cmd = [QUICKGLASS, '-srcPath', src_path, '-destPath', dest_path, '-maxWidth', max_width,
+           '-maxHeight', max_height, '-exportFormat', export_format]
     print cmd
-    assert(subprocess.call(shlex.split(cmd)) == 0)
+    assert(check_call(cmd) == 0)
 
     assert(exists(dest_path))
     return dest_path
