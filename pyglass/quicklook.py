@@ -32,7 +32,7 @@ def generator_preview(src_path):
     assert(exists(src_path))
     src_filename = basename(src_path)
 
-    dest_dir = mkdtemp(prefix='pixelapse')
+    dest_dir = mkdtemp(prefix='pyglass')
     dest_path = join(dest_dir, '%s.qlpreview' % (src_filename), 'Preview.png')
 
     cmd = u'%s -p "%s" -o "%s"' % (QLMANAGE, src_path, dest_dir)
