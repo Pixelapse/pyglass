@@ -66,11 +66,13 @@ def list_pages(src_path):
 ############################################################
 # EXPORT COMMANDS
 ############################################################
-def export_cmd(cmd, dest_dir=None, export_format=None, scale=None):
+def export_cmd(cmd, dest_dir=None, item_id=None, export_format=None, scale=None):
   ''' Executes a `sketchtool export` command and returns formatted output
 
-  :param export_format: one of type ExportFormat
-  :param scale: export scale of type float
+  :dest_dir: Items are exported at /dest_dir/name@scale.export_format e.g. `~/Desktop/Page 1@2x.png`
+  :param export_format: 'png', 'pdf' etc. :type <ExportFormat>
+  :param scale: Specify as 1.0, 2.0 etc. :type <float>
+  :param item_id: id or name of an Exportable :type <str>
   '''
   if not dest_dir:
     dest_dir = mkdtemp(prefix='pyglass')
@@ -83,9 +85,13 @@ def export_cmd(cmd, dest_dir=None, export_format=None, scale=None):
   if scale:
     cmd.extend(['--scales=%s' % scale])
 
+  if item_id:
+    cmd.extend(['--items=%s' % item_id])
+
   print u'Executing cmd: %s' % cmd
   result = execute(cmd)
   print u'Raw result: %s' % result
+  return result
 
 
 def export_slices(src_path, *args, **kwargs):
