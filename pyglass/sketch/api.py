@@ -2,6 +2,7 @@
 # Default libs
 import json
 import logging
+import os
 
 from tempfile import mkdtemp
 
@@ -22,6 +23,14 @@ def execute(cmd):
   except Exception as e:
     print u'Couldnt execute cmd: %s.\nReason: %s' % (cmd, e)
     return None
+
+
+def is_sketchfile(src_path):
+  ''' Returns True if src_path is a sketch file '''
+  extension = os.path.splitext(src_path)[1].lower()
+  if extension == '.sketch':
+    return True
+  return False
 
 
 ############################################################
