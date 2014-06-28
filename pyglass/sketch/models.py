@@ -4,9 +4,11 @@
 from .utils import unicode_or_none
 from .parse import parse_artboards, parse_slices
 
+from ..models import Exportable, GenericObject
+
 
 class ExportFormat:
-  ''' File format types sketchtool can export '''
+  ''' File formats `sketchtool` can export '''
   PNG = 'png'
   JPG = 'jpg'
   PDF = 'pdf'
@@ -14,29 +16,7 @@ class ExportFormat:
   SVG = 'svg'
 
 
-class SketchObject(object):
-  ''' Base class for any generic Sketch object '''
-  def __unicode__(self):
-    return u'<SketchObject>'
-
-  def __str__(self):
-    return unicode(self).encode('ascii', 'replace')
-
-  def __repr__(self):
-    return unicode(self)
-
-
-class SketchExportable(SketchObject):
-  ''' Base class for any exportable Sketch item, i.e. Pages, Artboards, Slices '''
-  def __init__(self, exportable_dict):
-    self.id = unicode_or_none(exportable_dict, 'id')
-    self.name = unicode_or_none(exportable_dict, 'name')
-
-  def __unicode__(self):
-    return u'<SketchExportable (id=\'%s\', name=\'%s\')>' % (self.id, self.name)
-
-
-class Bounds(SketchObject):
+class Bounds(GenericObject):
   def __init__(self, bounds_str):
     bounds_list = [float(num) for num in bounds_str.split(',')]
 
@@ -47,7 +27,7 @@ class Bounds(SketchObject):
     return u'<Bounds (x=%s, y=%s, width=%s, height=%s)>' % (self.x, self.y, self.width, self.height)
 
 
-class Rect(SketchObject):
+class Rect(GenericObject):
   def __init__(self, rect_dict):
     print 'Rect_dict: %s' % rect_dict
     self.x, self.y = float(rect_dict['x']), float(rect_dict['y'])
@@ -55,6 +35,17 @@ class Rect(SketchObject):
 
   def __unicode__(self):
     return u'<Rect (x=%s, y=%s, width=%s, height=%s)>' % (self.x, self.y, self.width, self.height)
+
+
+class SketchExportable(Exportable):
+  ''' Base class for any exportable Sketch item, i.e. Pages, Artboards, Slices '''
+  def __init__(self, exportable_dict):
+    self.id = unicode_or_none(exportable_dict, 'id')
+    self.name = unicode_or_none(exportable_dict, 'name')
+    super(SketchExportable, self).__init__()
+
+  def __unicode__(self):
+    return u'<SketchExportable (id=\'%s\', name=\'%s\')>' % (self.id, self.name)
 
 
 class Page(SketchExportable):
