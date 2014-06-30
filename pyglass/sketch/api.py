@@ -122,21 +122,25 @@ def export_pages(*args, **kwargs):
 ############################################################
 # RETURN PAGES, ARTBOARDS, SLICES WITH EXPORTED PNGS
 ############################################################
-# def pages(src_path):
-#   ''' Return pages as flat list with exported pngs '''
-#   pages = list_pages(src_path)
-#   for page in pages:
-#     page.png_path = export_pages(src_path, item_id=page.id)
-#   return pages
+def pages(src_path):
+  ''' Return pages as flat list '''
+  pages = list_pages(src_path)
+  return pages
 
 
-# def slices(src_path):
-#   ''' Return slices as a flat list '''
-#   pages = list_slices(src_path)
-#   slices = []
-#   for page in pages:
-#     slices.extend(page.slices)
-#   return slices
+def slices(src_path):
+  ''' Return slices as a flat list '''
+  pages = list_slices(src_path)
+  slices = []
+  for page in pages:
+    slices.extend(page.slices)
+  return slices
 
-# def artboards(src_path):
-#   pages = list_artboards(src_path)
+
+def artboards(src_path):
+  ''' Return artboards as a flat list '''
+  pages = list_artboards(src_path)
+  artboards = []
+  for page in pages:
+    artboards.extend(page.artboards)
+  return artboards
