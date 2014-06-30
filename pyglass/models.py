@@ -14,10 +14,11 @@ class GenericObject(object):
 
 
 class Exportable(GenericObject):
+  ''' Any exportable subcomponent of a file. e.g. layers, pages, artboards '''
   def __init__(self):
     self._png_path = None
 
-  def export(self):
+  def _export(self):
     ''' Overwritten by subclasses to export themselves as pngs '''
     pass
 

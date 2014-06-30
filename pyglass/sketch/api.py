@@ -34,39 +34,42 @@ def is_sketchfile(src_path):
 
 
 ############################################################
-# LIST COMMANDS
+# LIST COMMANDS - PASSTHROUGH TO SKETCHTOOL LIST
 ############################################################
-def list_cmd(cmd):
+def list_cmd(cmd, src_path):
   ''' Executes a `sketchtool list` command and parse the output '''
+  cmd.extend([src_path])
+
   result = execute(cmd)
   if not result:
     return None
 
   print u'Raw result: %s' % result
   list_dict = json.loads(result)
-  pages = parse_pages(list_dict)
-  print 'Pages: %s' % pages
+  pages = parse_pages(src_path, list_dict)
+  print u'Pages: %s' % pages
+  return pages
 
 
 def list_slices(src_path):
-  cmd = [SKETCHTOOL, 'list', 'slices', src_path]
-  return list_cmd(cmd)
+  cmd = [SKETCHTOOL, 'list', 'slices']
+  return list_cmd(cmd, src_path)
 
 
 def list_artboards(src_path):
-  cmd = [SKETCHTOOL, 'list', 'artboards', src_path]
-  return list_cmd(cmd)
+  cmd = [SKETCHTOOL, 'list', 'artboards']
+  return list_cmd(cmd, src_path)
 
 
 def list_pages(src_path):
-  cmd = [SKETCHTOOL, 'list', 'pages', src_path]
-  return list_cmd(cmd)
+  cmd = [SKETCHTOOL, 'list', 'pages']
+  return list_cmd(cmd, src_path)
 
 
 ############################################################
-# EXPORT COMMANDS
+# EXPORT COMMANDS - PASSTHROUGH TO SKETCHTOOL EXPORT
 ############################################################
-def export_cmd(cmd, dest_dir=None, item_id=None, export_format=None, scale=None):
+def export_cmd(cmd, src_path, dest_dir=None, item_id=None, export_format=None, scale=None):
   ''' Executes a `sketchtool export` command and returns formatted output
 
   :dest_dir: Items are exported at /dest_dir/name@scale.export_format e.g. `~/Desktop/Page 1@2x.png`
@@ -74,6 +77,8 @@ def export_cmd(cmd, dest_dir=None, item_id=None, export_format=None, scale=None)
   :param scale: Specify as 1.0, 2.0 etc. :type <float>
   :param item_id: id or name of an Exportable :type <str>
   '''
+  cmd.extend([src_path])
+
   if not dest_dir:
     dest_dir = mkdtemp(prefix='pyglass')
 
@@ -94,21 +99,44 @@ def export_cmd(cmd, dest_dir=None, item_id=None, export_format=None, scale=None)
   return result
 
 
-def export_slices(src_path, *args, **kwargs):
-  cmd = [SKETCHTOOL, 'export', 'slices', src_path]
+def export_slices(*args, **kwargs):
+  cmd = [SKETCHTOOL, 'export', 'slices']
   return export_cmd(cmd, *args, **kwargs)
 
 
-def export_artboards(src_path, *args, **kwargs):
-  cmd = [SKETCHTOOL, 'export', 'artboards', src_path]
+def export_artboards(*args, **kwargs):
+  cmd = [SKETCHTOOL, 'export', 'artboards']
   return export_cmd(cmd, *args, **kwargs)
 
 
-def export_pages(src_path, *args, **kwargs):
+def export_pages(*args, **kwargs):
   ''' Exports pages from src_path in dest_dir in given format and scale.
 
   >>> export_pages('~/example.sketch', dest_dir='~/Desktop/',
                     export_format=ExportFormat.PNG, scale=1.0)
   '''
-  cmd = [SKETCHTOOL, 'export', 'pages', src_path]
+  cmd = [SKETCHTOOL, 'export', 'pages']
   return export_cmd(cmd, *args, **kwargs)
+
+
+############################################################
+# RETURN PAGES, ARTBOARDS, SLICES WITH EXPORTED PNGS
+############################################################
+# def pages(src_path):
+#   ''' Return pages as flat list with exported pngs '''
+#   pages = list_pages(src_path)
+#   for page in pages:
+#     page.png_path = export_pages(src_path, item_id=page.id)
+#   return pages
+
+
+# def slices(src_path):
+#   ''' Return slices as a flat list '''
+#   pages = list_slices(src_path)
+#   slices = []
+#   for page in pages:
+#     slices.extend(page.slices)
+#   return slices
+
+# def artboards(src_path):
+#   pages = list_artboards(src_path)
