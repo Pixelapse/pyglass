@@ -56,6 +56,11 @@ class Page(SketchExportable):
     self.artboards = parse_artboards(filename, page_dict)
     super(Page, self).__init__(filename, page_dict)
 
+  def _export(self):
+    from .api import export_pages
+    return export_pages(self.filename, item_id=self.id,
+                        export_format=ExportFormat.PNG)
+
   def __unicode__(self):
     return u'<Page (id=\'%s\', name=\'%s\', bounds=%s, slices=%s, artboards=%s)>' % \
            (self.id, self.name, self.bounds, self.slices, self.artboards)
@@ -66,6 +71,11 @@ class Slice(SketchExportable):
     self.rect = Rect(slice_dict['rect'])
     super(Slice, self).__init__(filename, slice_dict)
 
+  def _export(self):
+    from .api import export_slices
+    return export_slices(self.filename, item_id=self.id,
+                         export_format=ExportFormat.PNG)
+
   def __unicode__(self):
     return u'<Slice (id=\'%s\', name=\'%s\', rect=%s)>' % (self.id, self.name, self.rect)
 
@@ -74,6 +84,11 @@ class Artboard(SketchExportable):
   def __init__(self, filename, artboard_dict):
     self.rect = Rect(artboard_dict['rect'])
     super(Artboard, self).__init__(filename, artboard_dict)
+
+  def _export(self):
+    from .api import export_artboards
+    return export_artboards(self.filename, item_id=self.id,
+                            export_format=ExportFormat.PNG)
 
   def __unicode__(self):
     return u'<Artboard (id=\'%s\', name=\'%s\', rect=%s)>' % (self.id, self.name, self.rect)
