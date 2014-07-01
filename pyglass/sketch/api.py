@@ -40,6 +40,7 @@ def list_cmd(cmd, src_path):
   ''' Executes a `sketchtool list` command and parse the output '''
   cmd.extend([src_path])
 
+  print u'Executing cmd: %s' % cmd
   result = execute(cmd)
   if not result:
     return None
@@ -71,10 +72,12 @@ def list_pages(src_path):
 def export_cmd(cmd, src_path, dest_dir=None, item_id=None, export_format=None, scale=None):
   ''' Executes a `sketchtool export` command and returns formatted output
 
+  :src_path: File to export. :type <str>
   :dest_dir: Items are exported at /dest_dir/name@scale.export_format e.g. `~/Desktop/Page 1@2x.png`
   :param export_format: 'png', 'pdf' etc. :type <ExportFormat>
   :param scale: Specify as 1.0, 2.0 etc. :type <float>
   :param item_id: id or name of an Exportable :type <str>
+  :returns: list of exported item paths
   '''
   cmd.extend([src_path])
 
@@ -93,9 +96,11 @@ def export_cmd(cmd, src_path, dest_dir=None, item_id=None, export_format=None, s
     cmd.extend(['--items=%s' % item_id])
 
   print u'Executing cmd: %s' % cmd
-  result = execute(cmd)
-  print u'Raw result: %s' % result
-  return result
+  exported_str = execute(cmd)
+  print u'Raw result: %s' % exported_str
+  # Raw result is in the form: 'Exported <item-name-1>\nExported <item-name-2>\n'
+  exported_items = [item.replace('Exported ', '%s/' % dest_dir) for item in exported_str.rstrip().split('\n')]
+  return exported_items
 
 
 def export_slices(*args, **kwargs):
@@ -119,7 +124,7 @@ def export_pages(*args, **kwargs):
 
 
 ############################################################
-# RETURN PAGES, ARTBOARDS, SLICES WITH EXPORTED PNGS
+# RETURNS PAGES, ARTBOARDS, SLICES WITH EXPORTED PNGS
 ############################################################
 def pages(src_path):
   ''' Return pages as flat list '''
