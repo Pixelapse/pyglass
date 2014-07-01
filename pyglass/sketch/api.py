@@ -8,6 +8,7 @@ from tempfile import mkdtemp
 
 # Library modules
 from process import check_output
+from pyunicode import safely_decode
 
 # Project modules
 from ..settings import SKETCHTOOL
@@ -19,16 +20,16 @@ logger = logging.getLogger(__name__)
 def execute(cmd):
   ''' Call cmd and return None if any exception occurs '''
   try:
-    return check_output(cmd)
+    return safely_decode(check_output(cmd))
   except Exception as e:
-    print u'Couldnt execute cmd: %s.\nReason: %s' % (cmd, e)
+    logger.warn(u'Couldnt execute cmd: %s.\nReason: %s' % (cmd, e))
     return None
 
 
 def is_sketchfile(src_path):
   ''' Returns True if src_path is a sketch file '''
   extension = os.path.splitext(src_path)[1].lower()
-  if extension == '.sketch':
+  if extension == u'.sketch':
     return True
   return False
 
@@ -40,12 +41,12 @@ def list_cmd(cmd, src_path):
   ''' Executes a `sketchtool list` command and parse the output '''
   cmd.extend([src_path])
 
-  print u'Executing cmd: %s' % cmd
+  logger.debug(u'Executing cmd: %s' % cmd)
   result = execute(cmd)
   if not result:
     return None
 
-  print u'Raw result: %s' % result
+  logger.debug(u'Raw result: %s' % result)
   list_dict = json.loads(result)
   pages = parse_pages(src_path, list_dict)
   return pages
@@ -95,9 +96,9 @@ def export_cmd(cmd, src_path, dest_dir=None, item_id=None, export_format=None, s
   if item_id:
     cmd.extend(['--items=%s' % item_id])
 
-  print u'Executing cmd: %s' % cmd
+  logger.debug(u'Executing cmd: %s' % cmd)
   exported_str = execute(cmd)
-  print u'Raw result: %s' % exported_str
+  logger.debug(u'Raw result: %s' % exported_str)
   # Raw result is in the form: 'Exported <item-name-1>\nExported <item-name-2>\n'
   exported_items = [item.replace('Exported ', '%s/' % dest_dir) for item in exported_str.rstrip().split('\n')]
   return exported_items
@@ -129,7 +130,6 @@ def export_pages(*args, **kwargs):
 def pages(src_path):
   ''' Return pages as flat list '''
   pages = list_pages(src_path)
-  print u'Pages: %s' % pages
   return pages
 
 
@@ -139,7 +139,6 @@ def slices(src_path):
   slices = []
   for page in pages:
     slices.extend(page.slices)
-  print u'Slices: %s' % slices
   return slices
 
 
@@ -149,5 +148,4 @@ def artboards(src_path):
   artboards = []
   for page in pages:
     artboards.extend(page.artboards)
-  print u'Artboards: %s' % artboards
   return artboards

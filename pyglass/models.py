@@ -2,6 +2,9 @@
 # Default libs
 import os
 
+# Library modules
+from pyunicode import safely_encode
+
 
 class GenericObject(object):
   ''' Base class for any generic object '''
@@ -9,10 +12,14 @@ class GenericObject(object):
     return u'<GenericObject>'
 
   def __str__(self):
-    return unicode(self).encode('ascii', 'replace')
+    return safely_encode(unicode(self))
 
   def __repr__(self):
-    return unicode(self)
+    try:
+      u = str(self)
+    except (UnicodeEncodeError, UnicodeDecodeError):
+      u = '[Bad Unicode data]'
+    return '<%s: %r>' % (self.__class__.__name__, u)
 
 
 class Exportable(GenericObject):

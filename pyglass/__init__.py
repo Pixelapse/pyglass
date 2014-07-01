@@ -26,6 +26,3 @@ __license__ = 'MIT'
 __copyright__ = 'Copyright 2014 Pixelapse'
 
 from .api import export_preview
-
-import logging
-logging.basicConfig()

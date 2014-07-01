@@ -97,7 +97,7 @@ setup(
   author_email='shravan@pixelapse.com',
   packages=find_packages(),
   package_data={'': package_libs},
-  install_requires=['process'],
+  install_requires=['process', 'pyunicode'],
   include_package_data=True,
   zip_safe=False,
   license=open('LICENSE').read()

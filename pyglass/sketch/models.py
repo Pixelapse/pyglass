@@ -45,7 +45,7 @@ class SketchExportable(Exportable):
     super(SketchExportable, self).__init__()
 
   def __unicode__(self):
-    return u'<SketchExportable (id=\'%s\', name=\'%s\')>' % (self.id, self.name)
+    return u'<SketchExportable (id="%s", name="%s")>' % (self.id, self.name)
 
 
 class Page(SketchExportable):
@@ -61,8 +61,8 @@ class Page(SketchExportable):
                         export_format=ExportFormat.PNG)[0]
 
   def __unicode__(self):
-    return u'<Page (id=\'%s\', name=\'%s\', bounds=%s, slices=%s, artboards=%s)>' % \
-           (self.id, self.name, self.bounds, self.slices, self.artboards)
+    return u'<Page (id="%s", name="%s", bounds=%s, slices=%s, artboards=%s)>' % \
+           (self.id, self.name, self.bounds, unicode(self.slices), unicode(self.artboards))
 
 
 class Slice(SketchExportable):
@@ -76,7 +76,7 @@ class Slice(SketchExportable):
                          export_format=ExportFormat.PNG)[0]
 
   def __unicode__(self):
-    return u'<Slice (id=\'%s\', name=\'%s\', rect=%s)>' % (self.id, self.name, self.rect)
+    return u'<Slice (id="%s", name="%s", rect=%s)>' % (self.id, self.name, self.rect)
 
 
 class Artboard(SketchExportable):
@@ -90,4 +90,4 @@ class Artboard(SketchExportable):
                             export_format=ExportFormat.PNG)[0]
 
   def __unicode__(self):
-    return u'<Artboard (id=\'%s\', name=\'%s\', rect=%s)>' % (self.id, self.name, self.rect)
+    return u'<Artboard (id="%s", name="%s", rect=%s)>' % (self.id, self.name, self.rect)
