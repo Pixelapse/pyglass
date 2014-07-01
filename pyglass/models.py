@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Default libs
+import os
 
 
 class GenericObject(object):
@@ -17,6 +19,13 @@ class Exportable(GenericObject):
   ''' Any exportable subcomponent of a file. e.g. layers, pages, artboards '''
   def __init__(self):
     self._png_path = None
+
+  def __del__(self):
+    self._cleanup()
+
+  def _cleanup(self):
+    if self._png_path and os.path.exists(self._png_path):
+      os.remove(self._png_path)
 
   def _export(self):
     ''' Overwritten by subclasses to export themselves as pngs '''
