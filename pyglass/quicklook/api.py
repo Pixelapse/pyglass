@@ -9,7 +9,7 @@ from os.path import isdir, exists, join, basename
 from process import check_call
 
 # Project modules
-from .settings import QLMANAGE, QUICKGLASS
+from ..settings import QLMANAGE, QUICKGLASS
 
 
 def embedded_preview(src_path):
