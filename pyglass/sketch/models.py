@@ -29,7 +29,6 @@ class Bounds(GenericObject):
 
 class Rect(GenericObject):
   def __init__(self, rect_dict):
-    print 'Rect_dict: %s' % rect_dict
     self.x, self.y = float(rect_dict['x']), float(rect_dict['y'])
     self.width, self.height = float(rect_dict['width']), float(rect_dict['height'])
 

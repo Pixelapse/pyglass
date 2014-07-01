@@ -47,7 +47,6 @@ def list_cmd(cmd, src_path):
   print u'Raw result: %s' % result
   list_dict = json.loads(result)
   pages = parse_pages(src_path, list_dict)
-  print u'Pages: %s' % pages
   return pages
 
 
@@ -125,6 +124,7 @@ def export_pages(*args, **kwargs):
 def pages(src_path):
   ''' Return pages as flat list '''
   pages = list_pages(src_path)
+  print u'Pages: %s' % pages
   return pages
 
 
@@ -134,6 +134,7 @@ def slices(src_path):
   slices = []
   for page in pages:
     slices.extend(page.slices)
+  print u'Slices: %s' % slices
   return slices
 
 
@@ -143,4 +144,5 @@ def artboards(src_path):
   artboards = []
   for page in pages:
     artboards.extend(page.artboards)
+  print u'Artboards: %s' % artboards
   return artboards

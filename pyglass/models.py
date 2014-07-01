@@ -25,5 +25,5 @@ class Exportable(GenericObject):
   @property
   def png_path(self):
     if not self._png_path:
-      self._png_path = self.export()
+      self._png_path = self._export()
     return self._png_path
