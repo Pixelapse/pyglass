@@ -19,7 +19,7 @@ from [Sketch](bohemiancoding.com/sketch/) files.
 
 or if using pip:
 
-    pip install git+git://github.com/Pixelapse/pyglass.git@{version_number}
+    pip install "git+git://github.com/Pixelapse/pyglass.git@{version_number}#egg=pyglass"
 
 ## License
   MIT. See `LICENSE` file.
