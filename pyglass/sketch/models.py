@@ -56,7 +56,7 @@ class Page(SketchExportable):
     super(Page, self).__init__(filename, page_dict)
 
   def _export(self):
-    from .api import export_pages
+    from .export import export_pages
     return export_pages(self.filename, item_id=self.id,
                         export_format=ExportFormat.PNG)[0]
 
@@ -71,7 +71,7 @@ class Slice(SketchExportable):
     super(Slice, self).__init__(filename, slice_dict)
 
   def _export(self):
-    from .api import export_slices
+    from .export import export_slices
     return export_slices(self.filename, item_id=self.id,
                          export_format=ExportFormat.PNG)[0]
 
@@ -85,7 +85,7 @@ class Artboard(SketchExportable):
     super(Artboard, self).__init__(filename, artboard_dict)
 
   def _export(self):
-    from .api import export_artboards
+    from .export import export_artboards
     return export_artboards(self.filename, item_id=self.id,
                             export_format=ExportFormat.PNG)[0]
 
