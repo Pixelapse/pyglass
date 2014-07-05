@@ -4,6 +4,7 @@ import shutil
 
 from tempfile import NamedTemporaryFile, mkdtemp
 from os.path import isdir, exists, join, basename
+from glob import glob
 
 # Library modules
 from process import check_call
@@ -13,12 +14,13 @@ from ..settings import QLMANAGE, QUICKGLASS
 
 
 def embedded_preview(src_path):
-  """ Returns path to temporary copy of embedded QuickLook preview, if it exists """
+  ''' Returns path to temporary copy of embedded QuickLook preview, if it exists '''
   try:
     assert(exists(src_path) and isdir(src_path))
 
-    preview_path = join(src_path, 'QuickLook', 'Preview.png')
-    assert(exists(preview_path))
+    preview_list = glob(join(src_path, '[Q|q]uicklook', '[P|p]review.*'))
+    assert(preview_list)  # Assert there's at least one preview file
+    preview_path = preview_list[0]  # Simplistically, assume there's only one
 
     with NamedTemporaryFile(prefix='pyglass', delete=False) as tempfileobj:
       dest_path = tempfileobj.name
@@ -29,7 +31,7 @@ def embedded_preview(src_path):
 
 
 def generator_preview(src_path):
-  """ Returns path to the preview created by the generator """
+  ''' Returns path to the preview created by the generator '''
   try:
     assert(exists(src_path))
     src_filename = basename(src_path)
@@ -48,7 +50,7 @@ def generator_preview(src_path):
 
 
 def thumbnail_preview(src_path):
-  """ Returns the path to small thumbnail preview. """
+  ''' Returns the path to small thumbnail preview. '''
   try:
     assert(exists(src_path))
 
@@ -67,3 +69,9 @@ def thumbnail_preview(src_path):
     return dest_path
   except:
     return None
+
+
+def export_pages(src_path, item_id=None):
+  ''' Should be used as entry point into funcs above '''
+  pass
+
