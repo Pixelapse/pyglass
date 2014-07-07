@@ -20,8 +20,6 @@ from distutils.dir_util import copy_tree
 from distutils.file_util import copy_file
 
 # Package modules
-import pyglass
-
 if sys.version_info[:2] < (2, 7):
   print "Sorry, pyglass requires python version 2.7 or later"
   sys.exit(1)
@@ -89,7 +87,7 @@ package_libs = lib_list()
 
 setup(
   name='pyglass',
-  version=pyglass.__version__,
+  version='0.0.4',
   url='http://github.com/Pixelapse/pyglass',
   description='Mac OS X File Preview Generator',
   long_description=open('README.md').read(),
@@ -97,7 +95,7 @@ setup(
   author_email='shravan@pixelapse.com',
   packages=find_packages(),
   package_data={'': package_libs},
-  install_requires=['process', 'pyunicode'],
+  install_requires=['process', 'pyunicode', 'Pillow'],
   include_package_data=True,
   zip_safe=False,
   license=open('LICENSE').read()
