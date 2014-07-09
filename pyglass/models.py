@@ -11,6 +11,12 @@ class ExportFormat:
   PDF = 'pdf'
 
 
+class ExportMimeType:
+  ''' Supported mimetypes '''
+  PNG = 'image/png'
+  PDF = 'application/pdf'
+
+
 class GenericObject(object):
   ''' Base class for any generic object '''
   def __unicode__(self):

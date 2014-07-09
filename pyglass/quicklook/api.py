@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 # Default libs
-import os
+
+# Installed libs
+import magic
 
 # Project modules
+from ..models import ExportMimeType
 from .export import embedded_preview, generator_preview, thumbnail_preview
 
 
@@ -17,8 +20,8 @@ def preview(src_path):
     preview_path = thumbnail_preview(src_path)
 
   if preview_path:
-    extension = os.path.splitext(src_path)[1].lower()
-    if extension in ['png', 'pdf']:
+    mimetype = magic.from_file(src_path, mime=True).lower()
+    if mimetype in [ExportMimeType.PNG, ExportMimeType.PDF]:
       return preview_path
 
   return None
