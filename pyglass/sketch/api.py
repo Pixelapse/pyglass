@@ -4,12 +4,11 @@ import json
 import logging
 import os
 
-
 # Project modules
 from ..settings import SKETCHTOOL
 from ..models import ExportFormat
 from .parse import parse_pages
-from .utils import execute
+from .utils import execute, stitch_pdfs
 
 logger = logging.getLogger(__name__)
 
@@ -87,13 +86,8 @@ def artboards(src_path):
 
 
 ############################################################
-# SIMPLE IMAGE PREVIEW REPRESENTATION OF FILE
+# SIMPLE IMAGE PREVIEW OF FILE
 ############################################################
-def stitch_pdf(pdf_list):
-  ''' Merges a series of single page pdfs into one multi-page doc '''
-  pass
-
-
 def preview(src_path):
   ''' Returns a file preview. PNG, if single page. PDF, if multi-page. '''
   file_pages = pages(src_path)
@@ -101,10 +95,10 @@ def preview(src_path):
   if len(file_pages) > 1:
     previews = []
     for page in file_pages:
-      previews.append(page.export(ExportFormat.PDF))
-    return stitch_pdf(previews)
+      previews.append(page.export(export_format=ExportFormat.PDF))
+    return stitch_pdfs(previews)
 
   if len(file_pages) == 1:
-    return file_pages[0].export()
+    return file_pages[0].export(export_format=ExportFormat.PNG)
 
   return None
