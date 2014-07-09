@@ -95,7 +95,7 @@ setup(
   author_email='shravan@pixelapse.com',
   packages=find_packages(),
   package_data={'': package_libs},
-  install_requires=['process', 'pyunicode'],
+  install_requires=['process', 'pyunicode', 'PyPDF2'],
   include_package_data=True,
   zip_safe=False,
   license=open('LICENSE').read()
