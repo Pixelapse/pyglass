@@ -7,6 +7,7 @@ import os
 
 # Project modules
 from ..settings import SKETCHTOOL
+from ..models import ExportFormat
 from .parse import parse_pages
 from .utils import execute
 
@@ -83,3 +84,27 @@ def artboards(src_path):
   for page in pages:
     artboards.extend(page.artboards)
   return artboards
+
+
+############################################################
+# SIMPLE IMAGE PREVIEW REPRESENTATION OF FILE
+############################################################
+def stitch_pdf(pdf_list):
+  ''' Merges a series of single page pdfs into one multi-page doc '''
+  pass
+
+
+def preview(src_path):
+  ''' Returns a file preview. PNG, if single page. PDF, if multi-page. '''
+  file_pages = pages(src_path)
+
+  if len(file_pages) > 1:
+    previews = []
+    for page in file_pages:
+      previews.append(page.export(ExportFormat.PDF))
+    return stitch_pdf(previews)
+
+  if len(file_pages) == 1:
+    return file_pages[0].export()
+
+  return None

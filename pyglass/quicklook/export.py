@@ -16,7 +16,7 @@ from ..settings import QLMANAGE, QUICKGLASS
 ############################################################
 # DONT CALL DIRECTLY
 ############################################################
-def _embedded_preview(src_path):
+def embedded_preview(src_path):
   ''' Returns path to temporary copy of embedded QuickLook preview, if it exists '''
   try:
     assert(exists(src_path) and isdir(src_path))
@@ -35,7 +35,7 @@ def _embedded_preview(src_path):
     return None
 
 
-def _generator_preview(src_path):
+def generator_preview(src_path):
   ''' Returns path to the preview created by the generator '''
   try:
     assert(exists(src_path))
@@ -55,7 +55,7 @@ def _generator_preview(src_path):
     return None
 
 
-def _thumbnail_preview(src_path):
+def thumbnail_preview(src_path):
   ''' Returns the path to small thumbnail preview. '''
   try:
     assert(exists(src_path))
@@ -75,20 +75,3 @@ def _thumbnail_preview(src_path):
     return dest_path
   except:
     return None
-
-
-############################################################
-# EXPORT COMMANDS
-############################################################
-
-def export_pages(src_path, item_id=None):
-  ''' Should be used as entry point into funcs above '''
-  preview_path = _embedded_preview(src_path)
-
-  if not preview_path:
-    preview_path = _generator_preview(src_path)
-
-  if not preview_path:
-    preview_path = _thumbnail_preview(src_path)
-
-  return preview_path

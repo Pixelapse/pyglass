@@ -3,17 +3,14 @@
 from . import quicklook, sketch
 
 
-# def export_preview(src_path):
-#   if sketch.is_sketchfile(src_path):
-#     preview_path = sketch.export_pages(src_path)
+def preview(src_path):
+  ''' Returns the path to a png if single page, pdf if multi-page '''
+  preview_path = None
 
-#   if not preview_path:
-#     preview_path = quicklook.embedded_preview(src_path)
+  if sketch.is_sketchfile(src_path):
+    preview_path = sketch.preview(src_path)
 
-#   if not preview_path:
-#     preview_path = quicklook.generator_preview(src_path)
+  if not preview_path:
+    preview_path = quicklook.preview(src_path)
 
-#   if not preview_path:
-#     preview_path = quicklook.thumbnail_preview(src_path)
-
-#   return preview_path
+  return preview_path

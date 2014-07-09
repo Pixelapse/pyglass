@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from .api import pages
+from .api import preview
