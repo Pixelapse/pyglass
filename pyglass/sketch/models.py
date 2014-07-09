@@ -4,18 +4,12 @@
 from .utils import unicode_or_none
 from .parse import parse_artboards, parse_slices
 
-from ..models import Exportable, GenericObject
+from ..models import Exportable, GenericObject, ExportFormat
 
 
-class ExportFormat:
-  ''' File formats `sketchtool` can export '''
-  PNG = 'png'
-  JPG = 'jpg'
-  PDF = 'pdf'
-  EPS = 'eps'
-  SVG = 'svg'
-
-
+############################################################
+# DIMENSIONS
+############################################################
 class Bounds(GenericObject):
   def __init__(self, bounds_str):
     bounds_list = [float(num) for num in bounds_str.split(',')]
@@ -36,6 +30,9 @@ class Rect(GenericObject):
     return u'<Rect (x=%s, y=%s, width=%s, height=%s)>' % (self.x, self.y, self.width, self.height)
 
 
+############################################################
+# EXPORTABLE OBJECTS
+############################################################
 class SketchExportable(Exportable):
   ''' Base class for any exportable Sketch item, i.e. Pages, Artboards, Slices '''
   def __init__(self, filename, exportable_dict):
@@ -55,10 +52,10 @@ class Page(SketchExportable):
     self.artboards = parse_artboards(filename, page_dict)
     super(Page, self).__init__(filename, page_dict)
 
-  def _export(self):
+  def export(self, export_format=ExportFormat.PNG):
     from .export import export_pages
     return export_pages(self.filename, item_id=self.id,
-                        export_format=ExportFormat.PNG)[0]
+                        export_format=export_format)[0]
 
   def __unicode__(self):
     return u'<Page (id="%s", name="%s", bounds=%s, slices=%s, artboards=%s)>' % \
@@ -70,10 +67,10 @@ class Slice(SketchExportable):
     self.rect = Rect(slice_dict['rect'])
     super(Slice, self).__init__(filename, slice_dict)
 
-  def _export(self):
+  def export(self, export_format=ExportFormat.PNG):
     from .export import export_slices
     return export_slices(self.filename, item_id=self.id,
-                         export_format=ExportFormat.PNG)[0]
+                         export_format=export_format)[0]
 
   def __unicode__(self):
     return u'<Slice (id="%s", name="%s", rect=%s)>' % (self.id, self.name, self.rect)
@@ -84,10 +81,10 @@ class Artboard(SketchExportable):
     self.rect = Rect(artboard_dict['rect'])
     super(Artboard, self).__init__(filename, artboard_dict)
 
-  def _export(self):
+  def export(self, export_format=ExportFormat.PNG):
     from .export import export_artboards
     return export_artboards(self.filename, item_id=self.id,
-                            export_format=ExportFormat.PNG)[0]
+                            export_format=export_format)[0]
 
   def __unicode__(self):
     return u'<Artboard (id="%s", name="%s", rect=%s)>' % (self.id, self.name, self.rect)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Project modules
-from ..models import Exportable
+from ..models import Exportable, ExportFormat
 
 
 class QLExportable(Exportable):
@@ -20,6 +20,5 @@ def Page(QLExportable):
     self.id = page_id
     super(Page, self).__init__(filename)
 
-  def _export():
+  def export(self, export_format=ExportFormat.PNG):
     pass
-
