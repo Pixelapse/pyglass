@@ -1,4 +1,3 @@
 git+git://github.com/Pixelapse/process.git@v0.0.1#egg=process
 git+git://github.com/Pixelapse/pyunicode.git@v0.0.2#egg=pyunicode
 
-Pillow==2.5.0
