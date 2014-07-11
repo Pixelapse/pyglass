@@ -20,7 +20,7 @@ def preview(src_path):
     preview_path = thumbnail_preview(src_path)
 
   if preview_path:
-    mimetype = magic.from_file(src_path, mime=True).lower()
+    mimetype = magic.from_file(preview_path, mime=True).lower()
     if mimetype in [ExportMimeType.PNG, ExportMimeType.PDF]:
       return preview_path
 
