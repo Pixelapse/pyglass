@@ -2,8 +2,6 @@
 
 # Default libs
 import os
-import unittest
-import time
 
 # Installed libs
 import magic
@@ -12,20 +10,13 @@ import magic
 import pyglass
 
 from tests.helpers import data_file
+from tests.test_base import BaseTestCase
 
 
 ############################################################
 # BASE CLASSES
 ############################################################
-class PreviewTestCase(unittest.TestCase):
-  def setUp(self):
-    print u'******* RUNNING %s TEST *******' % self.id()
-    self.time_start = time.time()
-
-  def tearDown(self):
-    self.time_elapsed = time.time() - self.time_start
-    print u'TIME TO: %s: %s secs' % (self.id(), self.time_elapsed)
-
+class PreviewTestCase(BaseTestCase):
   def _test_preview(self, file_path, num_pages=1):
     preview_path = pyglass.preview(file_path)
     self.assertIsNotNone(preview_path)
@@ -42,7 +33,7 @@ class PreviewTestCase(unittest.TestCase):
 ############################################################
 # TEST CASES
 ############################################################
-class TestSketch(PreviewTestCase):
+class TestSketchPreview(PreviewTestCase):
   def test_small(self):
     self._test_preview(data_file('sketch/small.sketch'))
 
@@ -59,6 +50,6 @@ class TestSketch(PreviewTestCase):
 ############################################################
 # TEST CASES
 ############################################################
-class TestGraffle(PreviewTestCase):
+class TestGrafflePreview(PreviewTestCase):
   def test_pages(self):
     self._test_preview(data_file('graffle/pages.graffle'), num_pages=2)
