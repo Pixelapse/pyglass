@@ -24,6 +24,10 @@ class PreviewTestCase(BaseTestCase):
     mimetype = magic.from_file(preview_path, mime=True).lower()
     if num_pages > 1:
       self.assertEqual(mimetype, pyglass.models.ExportMimeType.PDF)
+
+      from PyPDF2 import PdfFileReader
+      pdf_reader = PdfFileReader(preview_path)
+      self.assertEqual(pdf_reader.numPages, num_pages)
     else:
       self.assertEqual(mimetype, pyglass.models.ExportMimeType.PNG)
 

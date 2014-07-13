@@ -26,6 +26,9 @@ def unicode_or_none(dictionary, key):
   return None if key not in dictionary or dictionary[key] is None else unicode(dictionary[key])
 
 
+############################################################
+# PDF CLASSES
+############################################################
 def stitch_pdfs(pdf_list):
   ''' Merges a series of single page pdfs into one multi-page doc '''
   from PyPDF2 import PdfFileMerger
