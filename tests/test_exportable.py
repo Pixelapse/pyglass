@@ -129,5 +129,8 @@ class TestSketchExportable(BaseTestCase):
   def test_pages(self):
     self._test_exportables(data_file('sketch/pages.sketch'))
 
+  def test_artboards(self):
+    self._test_preview(data_file('sketch/artboards.sketch'))
+
   def test_unicode(self):
     self._test_exportables(data_file('sketch/unicode.sketch'))
