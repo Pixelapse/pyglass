@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 # Default libs
-from tempfile import NamedTemporaryFile
+import os
 
-# Installed libs
+from tempfile import NamedTemporaryFile
+from os.path import exists
+
+# Library modules
 from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter
+from process import check_call
 
 
 ############################################################
@@ -41,3 +45,32 @@ def split_pdf(pdf_path):
     pdf_list.append(page_path)
 
   return pdf_list
+
+
+def to_png(pdf_path):
+  ''' Converts a single-page pdf to a png image via the `sips` command
+  :returns: Path to the converted png
+  '''
+  try:
+    with NamedTemporaryFile(prefix='pyglass', delete=False) as tempfileobj:
+      png_path = tempfileobj.name
+
+    cmd = ['sips', '-s', 'format', 'png', pdf_path, '--out', png_path]
+    assert(check_call(cmd) == 0)
+
+    assert(exists(png_path))
+    return png_path
+  except:
+    return None
+
+
+def to_pngs(pdf_path):
+  ''' Converts a multi-page pdfs to a list of pngs via the `sips` command
+  :returns: A list of converted pngs
+  '''
+  pdf_list = split_pdf(pdf_path)
+  pngs = []
+  for pdf in pdf_list:
+    pngs.append(to_png(pdf))
+    os.remove(pdf)  # Clean up
+  return pngs
