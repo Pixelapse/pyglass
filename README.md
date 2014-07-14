@@ -20,6 +20,7 @@ from [Sketch](bohemiancoding.com/sketch/) files.
 
 ### External Dependencies
   * [Sketch Tool](http://bohemiancoding.com/sketch/tool/)
+  * [sips](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/sips.1.html)
 
 ## Installation
 
