@@ -7,8 +7,9 @@ import os
 # Project modules
 from ..settings import SKETCHTOOL
 from ..models import ExportFormat
+from ..pdf import stitch_pdfs
 from .parse import parse_pages
-from .utils import execute, stitch_pdfs
+from .utils import execute
 
 logger = logging.getLogger(__name__)
 
