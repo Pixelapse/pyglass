@@ -98,7 +98,7 @@ To get the entire hierarchy, use `sketch.list_artboards`
 
 ### System Requirements
   * Mac OS X 10.7+
-  * XCode Command Line Tools
+  * [Xcode Command Line Tools](https://developer.apple.com/downloads)
 
 ### External Dependencies
   * [Sketch Tool](http://bohemiancoding.com/sketch/tool/)
