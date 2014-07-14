@@ -32,7 +32,7 @@ class PreviewTestCase(BaseTestCase):
 
 
 ############################################################
-# TEST CASES
+# Sketch
 ############################################################
 class TestSketchPreview(PreviewTestCase):
   def test_small(self):
@@ -52,8 +52,12 @@ class TestSketchPreview(PreviewTestCase):
 
 
 ############################################################
-# TEST CASES
+# Graffle
 ############################################################
 class TestGrafflePreview(PreviewTestCase):
   def test_pages(self):
     self._test_preview(data_file('graffle/pages.graffle'), num_pages=2)
+
+  def test_package(self):
+    ''' Test Graffle file saved as package '''
+    self._test_preview(data_file('graffle/package.graffle'), num_pages=1)
