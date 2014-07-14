@@ -4,13 +4,15 @@ from . import quicklook, sketch
 
 
 def preview(src_path):
-  ''' Returns the path to a png if single page, pdf if multi-page '''
-  preview_path = None
+  ''' Generates a preview of src_path in the requested format.
+  :returns: A list of preview paths, one for each page.
+  '''
+  previews = []
 
   if sketch.is_sketchfile(src_path):
-    preview_path = sketch.preview(src_path)
+    previews = sketch.preview(src_path)
 
-  if not preview_path:
-    preview_path = quicklook.preview(src_path)
+  if not previews:
+    previews = quicklook.preview(src_path)
 
-  return preview_path
+  return previews
