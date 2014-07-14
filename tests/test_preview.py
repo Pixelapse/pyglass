@@ -61,3 +61,12 @@ class TestGrafflePreview(PreviewTestCase):
   def test_package(self):
     ''' Test Graffle file saved as package '''
     self._test_preview(data_file('graffle/package.graffle'), num_pages=1)
+
+
+############################################################
+# Plain Text
+############################################################
+class TestTextPreview(PreviewTestCase):
+  def test_plain(self):
+    # Verfiy that txt files are unsupported
+    self._test_preview(data_file('txt/plain.txt'), num_pages=0)
