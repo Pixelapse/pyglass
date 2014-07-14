@@ -1,32 +1,39 @@
-# pyglass: Mac OS X File Preview Generator
+# pyglass: Preview OS X Files
 
-pyglass is a python wrapper around QuickLook to extract preview images
-from files. Additionally, pyglass wraps around SketchTool to generate previews
+pyglass is a python wrapper around Apple's [QuickLook](https://developer.apple.com/library/mac/documentation/userexperience/conceptual/quicklook_programming_guide/Introduction/Introduction.html) to extract preview images
+from common filetypes.
+
+Additionally, pyglass wraps around [SketchTool](http://bohemiancoding.com/sketch/tool/) to generate previews
 from [Sketch](bohemiancoding.com/sketch/) files.
 
 ## Basic Usage
 
-    import pyglass
-    destPath = pyglass.export_preview('design_v1.sketch')
+    >>> import pyglass
+    >>> preview_list = pyglass.preview('design_v1.sketch')
+    '/var/folders/fq/xtn_qh1x6c3drpp3ycytx1fr0000gn/T/pyglasslTsXov'
 
 ## Requirements
+
+### System Requirements
   * Mac OS X 10.7+
   * XCode Command Line Tools
 
+### External Dependencies
+  * [Sketch Tool](http://bohemiancoding.com/sketch/tool/)
+
 ## Installation
 
-    $ python setup.py install
+First install pyglass's dependencies:
 
-or if using pip:
+    $ pip install -r "https://raw.githubusercontent.com/Pixelapse/pyglass/master/requirements.txt"
 
-    pip install "git+git://github.com/Pixelapse/pyglass.git@{version_number}#egg=pyglass"
+Then install the library.
 
-A couple of pyglass's dependencies are not on PyPI. You'll need to install them manually first.
+    $ pip install "git+git://github.com/Pixelapse/pyglass.git@{version_number}#egg=pyglass"
 
-    pip install "git+git://github.com/Pixelapse/process.git@v0.0.1#egg=process"
-    pip install "git+git://github.com/Pixelapse/pyunicode.git@v0.0.2#egg=pyunicode"
+## Tests
 
-## Running tests
+To run the test suite, execute:
 
     python setup.py nosetests
 
