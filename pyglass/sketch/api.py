@@ -6,9 +6,8 @@ import os
 
 # Project modules
 from ..settings import SKETCHTOOL
-from ..models import ExportFormat
 from .parse import parse_pages
-from .utils import execute, stitch_pdfs
+from .utils import execute
 
 logger = logging.getLogger(__name__)
 
@@ -89,16 +88,10 @@ def artboards(src_path):
 # SIMPLE IMAGE PREVIEW OF FILE
 ############################################################
 def preview(src_path):
-  ''' Returns a file preview. PNG, if single page. PDF, if multi-page. '''
-  file_pages = pages(src_path)
-
-  if len(file_pages) > 1:
-    previews = []
-    for page in file_pages:
-      previews.append(page.export(export_format=ExportFormat.PDF))
-    return stitch_pdfs(previews)
-
-  if len(file_pages) == 1:
-    return file_pages[0].export(export_format=ExportFormat.PNG)
-
-  return None
+  ''' Generates a preview of src_path as PNG.
+  :returns: A list of preview paths, one for each page.
+  '''
+  previews = []
+  for page in pages(src_path):
+    previews.append(page.export())
+  return previews

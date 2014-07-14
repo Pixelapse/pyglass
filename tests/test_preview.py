@@ -18,24 +18,21 @@ from tests.test_base import BaseTestCase
 ############################################################
 class PreviewTestCase(BaseTestCase):
   def _test_preview(self, file_path, num_pages=1):
-    preview_path = pyglass.preview(file_path)
-    self.assertIsNotNone(preview_path)
+    previews = pyglass.preview(file_path)
 
-    mimetype = magic.from_file(preview_path, mime=True).lower()
-    if num_pages > 1:
-      self.assertEqual(mimetype, pyglass.models.ExportMimeType.PDF)
+    self.assertIsNotNone(previews)
+    self.assertIsInstance(previews, list)
 
-      from PyPDF2 import PdfFileReader
-      pdf_reader = PdfFileReader(preview_path)
-      self.assertEqual(pdf_reader.numPages, num_pages)
-    else:
+    self.assertEqual(len(previews), num_pages)
+
+    for page in previews:
+      mimetype = magic.from_file(page, mime=True).lower()
       self.assertEqual(mimetype, pyglass.models.ExportMimeType.PNG)
-
-    os.remove(preview_path)
+      os.remove(page)  # Clean up
 
 
 ############################################################
-# TEST CASES
+# Sketch
 ############################################################
 class TestSketchPreview(PreviewTestCase):
   def test_small(self):
@@ -47,13 +44,29 @@ class TestSketchPreview(PreviewTestCase):
   def test_pages(self):
     self._test_preview(data_file('sketch/pages.sketch'), num_pages=3)
 
+  def test_artboards(self):
+    self._test_preview(data_file('sketch/artboards.sketch'), num_pages=1)
+
   def test_unicode(self):
     self._test_preview(data_file('sketch/unicode.sketch'), num_pages=2)
 
 
 ############################################################
-# TEST CASES
+# Graffle
 ############################################################
 class TestGrafflePreview(PreviewTestCase):
   def test_pages(self):
     self._test_preview(data_file('graffle/pages.graffle'), num_pages=2)
+
+  def test_package(self):
+    ''' Test Graffle file saved as package '''
+    self._test_preview(data_file('graffle/package.graffle'), num_pages=1)
+
+
+############################################################
+# Plain Text
+############################################################
+class TestTextPreview(PreviewTestCase):
+  def test_plain(self):
+    # Verfiy that txt files are unsupported
+    self._test_preview(data_file('txt/plain.txt'), num_pages=0)
