@@ -1,4 +1,4 @@
-# pyglass: Preview OS X Files
+# pyglass: Preview Mac OS X Documents
 
 pyglass is a python wrapper around Apple's [QuickLook](https://developer.apple.com/library/mac/documentation/userexperience/conceptual/quicklook_programming_guide/Introduction/Introduction.html) to extract preview images
 from common filetypes.
