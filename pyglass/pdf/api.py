@@ -19,7 +19,7 @@ def stitch_pdfs(pdf_list):
   for pdf in pdf_list:
     pdf_merger.append(pdf)
 
-  with NamedTemporaryFile(prefix='pyglass', delete=False) as tempfileobj:
+  with NamedTemporaryFile(prefix='pyglass', suffix='.pdf', delete=False) as tempfileobj:
     dest_path = tempfileobj.name
 
   pdf_merger.write(dest_path)
@@ -38,7 +38,7 @@ def split_pdf(pdf_path):
     pdf_writer = PdfFileWriter()
     pdf_writer.addPage(page)
 
-    with NamedTemporaryFile(prefix='pyglass', delete=False) as tempfileobj:
+    with NamedTemporaryFile(prefix='pyglass', suffix='.pdf', delete=False) as tempfileobj:
       pdf_writer.write(tempfileobj)
       page_path = tempfileobj.name
 
@@ -52,7 +52,7 @@ def to_png(pdf_path):
   :returns: Path to the converted png
   '''
   try:
-    with NamedTemporaryFile(prefix='pyglass', delete=False) as tempfileobj:
+    with NamedTemporaryFile(prefix='pyglass', suffix='.png', delete=False) as tempfileobj:
       png_path = tempfileobj.name
 
     cmd = ['sips', '-s', 'format', 'png', pdf_path, '--out', png_path]
