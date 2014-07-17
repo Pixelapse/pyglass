@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Default libs
 import logging
+import os
 
 # Library modules
 from process import check_output
@@ -22,3 +23,8 @@ def unicode_or_none(dictionary, key):
   if dictionary is None or key is None:
     return None
   return None if key not in dictionary or dictionary[key] is None else unicode(dictionary[key])
+
+
+def extension(path_str):
+  ''' Returns lowercased file extension for the path '''
+  return os.path.splitext(path_str)[1].lower()

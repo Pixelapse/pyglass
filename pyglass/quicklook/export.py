@@ -11,6 +11,8 @@ from process import check_call
 
 # Project modules
 from ..settings import QLMANAGE, QUICKGLASS
+from ..utils import extension
+from ..models import ExportFormat
 
 
 ############################################################
@@ -25,7 +27,7 @@ def embedded_preview(src_path):
     assert(preview_list)  # Assert there's at least one preview file
     preview_path = preview_list[0]  # Simplistically, assume there's only one
 
-    with NamedTemporaryFile(prefix='pyglass', delete=False) as tempfileobj:
+    with NamedTemporaryFile(prefix='pyglass', suffix=extension(preview_path), delete=False) as tempfileobj:
       dest_path = tempfileobj.name
       shutil.copy(preview_path, dest_path)
 
@@ -47,9 +49,10 @@ def generator_preview(src_path):
     src_filename = basename(src_path)
     dest_list = glob(join(dest_dir, '%s.qlpreview' % (src_filename), '[P|p]review.*'))
     assert(dest_list)
-    dest_path = dest_list[0]
 
+    dest_path = dest_list[0]
     assert(exists(dest_path))
+
     return dest_path
   except:
     return None
@@ -61,9 +64,9 @@ def thumbnail_preview(src_path):
     assert(exists(src_path))
 
     max_width, max_height = '2640', '1520'
-    export_format = 'png'
+    export_format = ExportFormat.PNG
 
-    with NamedTemporaryFile(prefix='pyglass', delete=False) as tempfileobj:
+    with NamedTemporaryFile(prefix='pyglass', suffix='.png', delete=False) as tempfileobj:
       dest_path = tempfileobj.name
 
     cmd = [QUICKGLASS, '-srcPath', src_path, '-destPath', dest_path,

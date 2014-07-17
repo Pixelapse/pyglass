@@ -2,20 +2,18 @@
 # Default libs
 import json
 import logging
-import os
 
 # Project modules
 from ..settings import SKETCHTOOL
+from ..utils import execute, extension
 from .parse import parse_pages
-from .utils import execute
 
 logger = logging.getLogger(__name__)
 
 
 def is_sketchfile(src_path):
   ''' Returns True if src_path is a sketch file '''
-  extension = os.path.splitext(src_path)[1].lower()
-  if extension == u'.sketch':
+  if extension(src_path) == u'.sketch':
     return True
   return False
 

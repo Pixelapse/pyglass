@@ -6,7 +6,7 @@ from tempfile import mkdtemp
 
 # Project modules
 from ..settings import SKETCHTOOL
-from .utils import execute
+from ..utils import execute
 
 logger = logging.getLogger(__name__)
 
