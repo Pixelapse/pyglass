@@ -90,6 +90,8 @@ def preview(src_path):
   :returns: A list of preview paths, one for each page.
   '''
   previews = []
-  for page in pages(src_path):
+  for page in list_artboards(src_path):
     previews.append(page.export())
+    for artboard in page.artboards:
+      previews.append(artboard.export())
   return previews
