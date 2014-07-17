@@ -87,7 +87,7 @@ package_libs = lib_list()
 
 setup(
   name='pyglass',
-  version='0.0.6',
+  version='0.0.7',
   url='http://github.com/Pixelapse/pyglass',
   description='Mac OS X File Preview Generator',
   long_description=open('README.md').read(),
