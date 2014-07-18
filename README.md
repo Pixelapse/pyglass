@@ -106,13 +106,9 @@ To get the entire hierarchy, use `sketch.list_artboards`
 
 ## Installation
 
-First install pyglass's dependencies:
+Simply run:
 
-    $ pip install -r "https://raw.githubusercontent.com/Pixelapse/pyglass/master/requirements.txt"
-
-Then install the library.
-
-    $ pip install "git+git://github.com/Pixelapse/pyglass.git@{version_number}#egg=pyglass"
+    $ pip install pyglass
 
 ## Tests
 
