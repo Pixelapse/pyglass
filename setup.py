@@ -40,7 +40,7 @@ class Dir:
 
 def rm_tempdirs():
   ''' Remove temporary build folders '''
-  tempdirs = [Dir.BUILD, Dir.DIST, Dir.COCOA_BUILD, Dir.LIB]
+  tempdirs = [Dir.BUILD, Dir.COCOA_BUILD, Dir.LIB]
   for tempdir in tempdirs:
     if os.path.exists(tempdir):
       shutil.rmtree(tempdir, ignore_errors=True)
@@ -85,7 +85,7 @@ copy_vendor_libs()
 
 package_libs = lib_list()
 
-version = '0.0.7'
+version = '0.0.8'
 
 setup(
   name='pyglass',
