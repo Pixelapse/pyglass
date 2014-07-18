@@ -1,4 +1,14 @@
-include README.md LICENSE
+include README.md
+include LICENSE
+
+prune cocoa/build
 graft cocoa/QuickGlass
 graft cocoa/QuickGlass.xcodeproj
+
 graft vendor
+
+prune tests
+
+recursive-exclude * *.pyc
+recursive-exclude * .*.swp
+recursive-exclude * .DS_Store
