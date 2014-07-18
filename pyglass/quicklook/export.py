@@ -7,7 +7,7 @@ from os.path import isdir, exists, join, basename
 from glob import glob
 
 # Library modules
-from process import check_call
+from pxprocess import check_call
 
 # Project modules
 from ..settings import QLMANAGE, QUICKGLASS

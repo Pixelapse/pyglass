@@ -7,7 +7,7 @@ from os.path import exists
 
 # Library modules
 from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter
-from process import check_call
+from pxprocess import check_call
 
 
 ############################################################

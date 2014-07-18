@@ -85,17 +85,22 @@ copy_vendor_libs()
 
 package_libs = lib_list()
 
+version = '0.0.7'
+
 setup(
   name='pyglass',
-  version='0.0.7',
+  version=version,
   url='http://github.com/Pixelapse/pyglass',
+  download_url='https://github.com/Pixelapse/pyglass/tarball/v%s' % version,
   description='Mac OS X File Preview Generator',
   long_description=open('README.md').read(),
   author='Shravan Reddy',
   author_email='shravan@pixelapse.com',
+  maintainer='Pixelapse',
+  maintainer_email='hello@pixelapse.com',
   packages=find_packages(),
   package_data={'': package_libs},
-  install_requires=['process', 'pyunicode', 'PyPDF2', 'python-magic'],
+  install_requires=['pxprocess', 'pyunicode', 'PyPDF2', 'python-magic'],
   include_package_data=True,
   zip_safe=False,
   license=open('LICENSE').read()

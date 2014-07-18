@@ -4,7 +4,7 @@ import logging
 import os
 
 # Library modules
-from process import check_output
+from pxprocess import check_output
 from pyunicode import safely_decode
 
 logger = logging.getLogger(__name__)
