@@ -13,8 +13,8 @@ from [Sketch](bohemiancoding.com/sketch/) files.
     >>> import pyglass
     >>> previews = pyglass.preview('design_v1.sketch')
     >>> previews
-     ['/var/folders/fq/xtn_qh1x6c3drpp3ycytx1fr0000gn/T/pyglassY92Xqs',
-     '/var/folders/fq/xtn_qh1x6c3drpp3ycytx1fr0000gn/T/pyglassZ34Jab']
+     ['/var/folders/fq/xtn_qh1x6c3drpp3ycytx1fr0000gn/T/pyglassY92Xqs.png',
+     '/var/folders/fq/xtn_qh1x6c3drpp3ycytx1fr0000gn/T/pyglassZ34Jab.png']
 
 Each preview returned in the list is a PNG, one for each page in the source document.
 
