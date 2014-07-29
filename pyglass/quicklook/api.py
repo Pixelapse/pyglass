@@ -2,11 +2,11 @@
 # Default libs
 
 # Installed libs
-import magic
 
 # Project modules
 from ..models import ExportMimeType
 from ..pdf import to_pngs
+from ..utils import mimetype
 from .export import embedded_preview, generator_preview, thumbnail_preview
 
 
@@ -24,11 +24,10 @@ def preview(src_path):
 
   # Ensure the preview is returned in the right format
   if preview:
-    mimetype = magic.from_file(preview, mime=True).lower()
-    if mimetype in [ExportMimeType.PNG]:
+    if mimetype(preview) in [ExportMimeType.PNG]:
       return [preview]
 
-    if mimetype in [ExportMimeType.PDF]:
+    if mimetype(preview) in [ExportMimeType.PDF]:
       return to_pngs(preview)
 
   return []

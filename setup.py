@@ -100,7 +100,7 @@ setup(
   maintainer_email='hello@pixelapse.com',
   packages=find_packages(),
   package_data={'': package_libs},
-  install_requires=['pxprocess', 'pyunicode', 'PyPDF2', 'python-magic'],
+  install_requires=['pxprocess', 'pyunicode', 'PyPDF2'],
   include_package_data=True,
   zip_safe=False,
   license=open('LICENSE').read()

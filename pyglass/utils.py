@@ -28,3 +28,8 @@ def unicode_or_none(dictionary, key):
 def extension(path_str):
   ''' Returns lowercased file extension for the path '''
   return os.path.splitext(path_str)[1].lower()
+
+
+def mimetype(path_str):
+  ''' Returns the mimetype of the file at path_str. Depends on OS X's `file` util '''
+  return execute(['file', '--mime-type', '--brief', path_str]).strip().lower()

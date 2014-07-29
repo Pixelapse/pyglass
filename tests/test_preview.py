@@ -4,7 +4,6 @@
 import os
 
 # Installed libs
-import magic
 
 # Project modules
 import pyglass
@@ -26,7 +25,7 @@ class PreviewTestCase(BaseTestCase):
     self.assertEqual(len(previews), num_pages)
 
     for page in previews:
-      mimetype = magic.from_file(page, mime=True).lower()
+      mimetype = pyglass.utils.mimetype(page)
       self.assertEqual(mimetype, pyglass.models.ExportMimeType.PNG)
       os.remove(page)  # Clean up
 
