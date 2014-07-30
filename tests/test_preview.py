@@ -25,6 +25,7 @@ class PreviewTestCase(BaseTestCase):
     self.assertEqual(len(previews), num_pages)
 
     for page in previews:
+      self.assertTrue(os.path.isfile(page))
       mimetype = pyglass.utils.mimetype(page)
       self.assertEqual(mimetype, pyglass.models.ExportMimeType.PNG)
       os.remove(page)  # Clean up
