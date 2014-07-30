@@ -2,6 +2,7 @@
 # Default libs
 import logging
 
+from glob import glob
 from tempfile import mkdtemp
 
 # Project modules
@@ -44,7 +45,8 @@ def export_cmd(cmd, src_path, dest_dir=None, item_id=None, export_format=None, s
   exported_str = execute(cmd)
   logger.debug(u'Raw result: %s' % exported_str)
   # Raw result is in the form: 'Exported <item-name-1>\nExported <item-name-2>\n'
-  exported_items = [item.replace('Exported ', '%s/' % dest_dir) for item in exported_str.rstrip().split('\n')]
+
+  exported_items = glob('%s/*' % dest_dir)
   return exported_items
 
 
