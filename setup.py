@@ -85,7 +85,7 @@ copy_vendor_libs()
 
 package_libs = lib_list()
 
-version = '0.0.9'
+version = '0.1.0'
 
 setup(
   name='pyglass',
