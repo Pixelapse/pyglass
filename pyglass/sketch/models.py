@@ -54,8 +54,8 @@ class Page(SketchExportable):
 
   def export(self, export_format=ExportFormat.PNG):
     from .export import export_pages
-    return export_pages(self.filename, item_id=self.id,
-                        export_format=export_format)[0]
+    pages = export_pages(self.filename, item_id=self.id, export_format=export_format)
+    return pages[0] if pages else None
 
   def __unicode__(self):
     return u'<Page (id="%s", name="%s", bounds=%s, slices=%s, artboards=%s)>' % \
@@ -69,8 +69,8 @@ class Slice(SketchExportable):
 
   def export(self, export_format=ExportFormat.PNG):
     from .export import export_slices
-    return export_slices(self.filename, item_id=self.id,
-                         export_format=export_format)[0]
+    slices = export_slices(self.filename, item_id=self.id, export_format=export_format)
+    return slices[0] if slices else None
 
   def __unicode__(self):
     return u'<Slice (id="%s", name="%s", rect=%s)>' % (self.id, self.name, self.rect)
@@ -83,8 +83,8 @@ class Artboard(SketchExportable):
 
   def export(self, export_format=ExportFormat.PNG):
     from .export import export_artboards
-    return export_artboards(self.filename, item_id=self.id,
-                            export_format=export_format)[0]
+    artboards = export_artboards(self.filename, item_id=self.id, export_format=export_format)
+    return artboards[0] if artboards else None
 
   def __unicode__(self):
     return u'<Artboard (id="%s", name="%s", rect=%s)>' % (self.id, self.name, self.rect)
