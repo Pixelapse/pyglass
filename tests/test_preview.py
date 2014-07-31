@@ -47,6 +47,9 @@ class TestSketchPreview(PreviewTestCase):
   def test_artboards(self):
     self._test_preview(data_file('sketch/artboards.sketch'), num_pages=3)
 
+  def test_slash_artboards(self):
+    self._test_preview(data_file('sketch/artboards : slash.sketch'), num_pages=3)
+
   def test_unicode(self):
     self._test_preview(data_file('sketch/unicode.sketch'), num_pages=6)
 
