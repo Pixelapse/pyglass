@@ -36,22 +36,28 @@ class PreviewTestCase(BaseTestCase):
 ############################################################
 class TestSketchPreview(PreviewTestCase):
   def test_small(self):
-    self._test_preview(data_file('sketch/small.sketch'))
+    self._test_preview(data_file('sketch/v3.0/small.sketch'))
+    self._test_preview(data_file('sketch/v3.1/small.sketch'))
 
   def test_large(self):
-    self._test_preview(data_file('sketch/large.sketch'))
+    self._test_preview(data_file('sketch/v3.0/large.sketch'))
+    self._test_preview(data_file('sketch/v3.1/large.sketch'))
 
   def test_pages(self):
-    self._test_preview(data_file('sketch/pages.sketch'), num_pages=3)
+    self._test_preview(data_file('sketch/v3.0/pages.sketch'), num_pages=3)
+    self._test_preview(data_file('sketch/v3.1/pages.sketch'), num_pages=3)
 
   def test_artboards(self):
-    self._test_preview(data_file('sketch/artboards.sketch'), num_pages=3)
+    self._test_preview(data_file('sketch/v3.0/artboards.sketch'), num_pages=3)
+    self._test_preview(data_file('sketch/v3.1/artboards.sketch'), num_pages=3)
 
   def test_slash_artboards(self):
-    self._test_preview(data_file('sketch/artboards : slash.sketch'), num_pages=3)
+    self._test_preview(data_file('sketch/v3.0/artboards : slash.sketch'), num_pages=3)
+    self._test_preview(data_file('sketch/v3.1/artboards : slash.sketch'), num_pages=3)
 
   def test_unicode(self):
-    self._test_preview(data_file('sketch/unicode.sketch'), num_pages=6)
+    self._test_preview(data_file('sketch/v3.0/unicode.sketch'), num_pages=6)
+    self._test_preview(data_file('sketch/v3.1/unicode.sketch'), num_pages=6)
 
 
 ############################################################

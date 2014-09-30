@@ -121,16 +121,21 @@ class TestSketchExportable(BaseTestCase):
     self._test_pages(pages(src_path))
 
   def test_small(self):
-    self._test_exportables(data_file('sketch/small.sketch'))
+    self._test_exportables(data_file('sketch/v3.0/small.sketch'))
+    self._test_exportables(data_file('sketch/v3.1/small.sketch'))
 
   def test_large(self):
-    self._test_exportables(data_file('sketch/large.sketch'))
+    self._test_exportables(data_file('sketch/v3.0/large.sketch'))
+    self._test_exportables(data_file('sketch/v3.1/large.sketch'))
 
   def test_pages(self):
-    self._test_exportables(data_file('sketch/pages.sketch'))
+    self._test_exportables(data_file('sketch/v3.0/pages.sketch'))
+    self._test_exportables(data_file('sketch/v3.1/pages.sketch'))
 
   def test_artboards(self):
-    self._test_exportables(data_file('sketch/artboards.sketch'))
+    self._test_exportables(data_file('sketch/v3.0/artboards.sketch'))
+    self._test_exportables(data_file('sketch/v3.1/artboards.sketch'))
 
   def test_unicode(self):
-    self._test_exportables(data_file('sketch/unicode.sketch'))
+    self._test_exportables(data_file('sketch/v3.0/unicode.sketch'))
+    self._test_exportables(data_file('sketch/v3.1/unicode.sketch'))
