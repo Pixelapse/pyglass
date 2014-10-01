@@ -136,6 +136,10 @@ class TestSketchExportable(BaseTestCase):
     self._test_exportables(data_file('sketch/v3.0/artboards.sketch'))
     self._test_exportables(data_file('sketch/v3.1/artboards.sketch'))
 
+  def test_slash_artboards(self):
+    self._test_exportables(data_file('sketch/v3.0/artboards : slash.sketch'))
+    self._test_exportables(data_file('sketch/v3.1/artboards : slash.sketch'))
+
   def test_unicode(self):
     self._test_exportables(data_file('sketch/v3.0/unicode.sketch'))
     self._test_exportables(data_file('sketch/v3.1/unicode.sketch'))
