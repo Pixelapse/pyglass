@@ -22,8 +22,8 @@ def make_executable(path_str):
 
 
 def sketchtool_executable():
+  make_executable(join(curr_dir, 'lib', 'SketchTool', 'sketchmigrate'))
   return make_executable(join(curr_dir, 'lib', 'SketchTool', 'sketchtool'))
-
 
 def quickglass_executable():
   return make_executable(join(curr_dir, 'lib', 'QuickGlass'))
