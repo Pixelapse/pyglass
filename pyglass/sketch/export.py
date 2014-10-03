@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Default libs
 import logging
+import os
 
 from glob import glob
 from tempfile import mkdtemp
@@ -46,7 +47,10 @@ def export_cmd(cmd, src_path, dest_dir=None, item_id=None, export_format=None, s
   logger.debug(u'Raw result: %s' % exported_str)
   # Raw result is in the form: 'Exported <item-name-1>\nExported <item-name-2>\n'
 
-  exported_items = glob('%s/*' % dest_dir)
+  exported_items = [os.path.join(dirpath, f)
+                    for dirpath, dirnames, files in os.walk(dest_dir)
+                    for f in files if f.endswith('.%s' % export_format)]
+
   return exported_items
 
 
