@@ -10,7 +10,7 @@ from glob import glob
 from pxprocess import check_call
 
 # Project modules
-from ..settings import QLMANAGE, QUICKGLASS
+from ..settings import QLMANAGE
 from ..utils import extension
 from ..models import ExportFormat
 

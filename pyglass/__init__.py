@@ -4,8 +4,7 @@
 pyglass library
 ~~~~~~~~~~~~~~~~~~~~~
 
-pyglass is a simple wrapper around the cocoa project QuickGlass to extract
-QuickLook previews from files.
+pyglass extracts QuickLook preview images from files.
 
 Basic usage:
 
