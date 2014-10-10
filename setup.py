@@ -3,8 +3,6 @@
 # System modules
 import sys
 import os
-import shlex
-import subprocess
 import shutil
 import platform
 
@@ -17,7 +15,6 @@ except ImportError:
   from distutils.core import setup
 
 from distutils.dir_util import copy_tree
-from distutils.file_util import copy_file
 
 # Package modules
 if sys.version_info[:2] < (2, 7):

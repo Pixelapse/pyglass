@@ -12,7 +12,6 @@ from pxprocess import check_call
 # Project modules
 from ..settings import QLMANAGE
 from ..utils import extension
-from ..models import ExportFormat
 
 
 ############################################################
@@ -63,10 +62,10 @@ def thumbnail_preview(src_path):
   try:
     assert(exists(src_path))
 
-    width = '2640'
+    width = '1980'
 
     dest_dir = mkdtemp(prefix='pyglass')
-    cmd = [QLMANAGE, '-t', '-s', max_width, src_path, '-o', dest_dir]
+    cmd = [QLMANAGE, '-t', '-s', width, src_path, '-o', dest_dir]
     assert(check_call(cmd) == 0)
 
     src_filename = basename(src_path)
