@@ -73,9 +73,27 @@ class TestGrafflePreview(PreviewTestCase):
 
 
 ############################################################
+# PowerPoint
+############################################################
+class TestPowerPointPreview(PreviewTestCase):
+  def test_pages(self):
+    # Has 2 pages, only can extract 1 via thumbnail
+    self._test_preview(data_file('powerpoint/pages.pptx'), num_pages=1)
+
+
+############################################################
+# PowerPoint
+############################################################
+class TestKeynotePreview(PreviewTestCase):
+  def test_pages(self):
+    # Has 2 pages, only can extract 1 via thumbnail
+    self._test_preview(data_file('keynote/pages.key'), num_pages=1)
+
+
+############################################################
 # Plain Text
 ############################################################
 class TestTextPreview(PreviewTestCase):
   def test_plain(self):
-    # Verfiy that txt files are unsupported
-    self._test_preview(data_file('txt/plain.txt'), num_pages=0)
+    # Verify that we grab the thumbnail from txt files
+    self._test_preview(data_file('txt/plain.txt'), num_pages=1)
