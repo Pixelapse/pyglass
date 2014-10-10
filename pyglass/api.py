@@ -5,6 +5,7 @@ from pyunicode import safely_decode
 # Project modules
 from . import quicklook, sketch
 
+
 def preview(src_path):
   ''' Generates a preview of src_path in the requested format.
   :returns: A list of preview paths, one for each page.
