@@ -73,6 +73,15 @@ class TestGrafflePreview(PreviewTestCase):
 
 
 ############################################################
+# Keynote
+############################################################
+class TestKeynotePreview(PreviewTestCase):
+  def test_pages(self):
+    # Has 2 pages, only can extract 1 via thumbnail
+    self._test_preview(data_file('keynote/pages.key'), num_pages=1)
+
+
+############################################################
 # PowerPoint
 ############################################################
 class TestPowerPointPreview(PreviewTestCase):
@@ -82,12 +91,19 @@ class TestPowerPointPreview(PreviewTestCase):
 
 
 ############################################################
-# PowerPoint
+# Word
 ############################################################
-class TestKeynotePreview(PreviewTestCase):
+class TestWordPreview(PreviewTestCase):
   def test_pages(self):
-    # Has 2 pages, only can extract 1 via thumbnail
-    self._test_preview(data_file('keynote/pages.key'), num_pages=1)
+    self._test_preview(data_file('word/pages.docx'), num_pages=1)
+
+
+############################################################
+# Excel
+############################################################
+class TestExcelPreview(PreviewTestCase):
+  def test_pages(self):
+    self._test_preview(data_file('excel/sheets.xlsx'), num_pages=1)
 
 
 ############################################################
