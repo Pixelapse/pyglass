@@ -25,10 +25,6 @@ def sketchtool_executable():
   make_executable(join(curr_dir, 'lib', 'SketchTool', 'sketchmigrate'))
   return make_executable(join(curr_dir, 'lib', 'SketchTool', 'sketchtool'))
 
-def quickglass_executable():
-  return make_executable(join(curr_dir, 'lib', 'QuickGlass'))
-
 
 SKETCHTOOL = sketchtool_executable()
-QUICKGLASS = quickglass_executable()
 QLMANAGE = join('/usr', 'bin', 'qlmanage')

@@ -3,8 +3,6 @@
 # System modules
 import sys
 import os
-import shlex
-import subprocess
 import shutil
 import platform
 
@@ -17,7 +15,6 @@ except ImportError:
   from distutils.core import setup
 
 from distutils.dir_util import copy_tree
-from distutils.file_util import copy_file
 
 # Package modules
 if sys.version_info[:2] < (2, 7):
@@ -46,23 +43,9 @@ def rm_tempdirs():
       shutil.rmtree(tempdir, ignore_errors=True)
 
 
-def xcodebuild():
-  ''' Build the QuickGlass binary in Release mode '''
-  # Build from xcodeproj
-  os.chdir(Dir.COCOA)
-  cmd = 'xcodebuild build'
-  subprocess.call(shlex.split(cmd))
-  os.chdir('..')
-
-
 def copy_vendor_libs():
   ''' Copies third party vendor libs into the module '''
   copy_tree('%s/' % Dir.VENDOR, '%s/' % Dir.LIB)
-
-
-def copy_custom_libs():
-  ''' Copies custom build libs into the module '''
-  copy_file('%s/Release/QuickGlass' % Dir.COCOA_BUILD, '%s/QuickGlass' % Dir.LIB)
 
 
 def lib_list():
@@ -76,11 +59,9 @@ def lib_list():
 
 # Compile custom project
 rm_tempdirs()
-xcodebuild()
 
 # Copy over libs into Dir.LIB
 os.makedirs(Dir.LIB)
-copy_custom_libs()
 copy_vendor_libs()
 
 package_libs = lib_list()
