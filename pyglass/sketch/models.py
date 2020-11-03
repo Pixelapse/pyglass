@@ -18,7 +18,7 @@ class Bounds(GenericObject):
     self.width, self.height = bounds_list[2], bounds_list[3]
 
   def __unicode__(self):
-    return u'<Bounds (x=%s, y=%s, width=%s, height=%s)>' % (self.x, self.y, self.width, self.height)
+    return '<Bounds (x=%s, y=%s, width=%s, height=%s)>' % (self.x, self.y, self.width, self.height)
 
 
 class Rect(GenericObject):
@@ -27,7 +27,7 @@ class Rect(GenericObject):
     self.width, self.height = float(rect_dict['width']), float(rect_dict['height'])
 
   def __unicode__(self):
-    return u'<Rect (x=%s, y=%s, width=%s, height=%s)>' % (self.x, self.y, self.width, self.height)
+    return '<Rect (x=%s, y=%s, width=%s, height=%s)>' % (self.x, self.y, self.width, self.height)
 
 
 ############################################################
@@ -42,7 +42,7 @@ class SketchExportable(Exportable):
     super(SketchExportable, self).__init__()
 
   def __unicode__(self):
-    return u'<SketchExportable (id="%s", name="%s")>' % (self.id, self.name)
+    return '<SketchExportable (id="%s", name="%s")>' % (self.id, self.name)
 
 
 class Page(SketchExportable):
@@ -58,8 +58,8 @@ class Page(SketchExportable):
     return pages[0] if pages else None
 
   def __unicode__(self):
-    return u'<Page (id="%s", name="%s", bounds=%s, slices=%s, artboards=%s)>' % \
-           (self.id, self.name, self.bounds, unicode(self.slices), unicode(self.artboards))
+    return '<Page (id="%s", name="%s", bounds=%s, slices=%s, artboards=%s)>' % \
+           (self.id, self.name, self.bounds, str(self.slices), str(self.artboards))
 
 
 class Slice(SketchExportable):
@@ -73,7 +73,7 @@ class Slice(SketchExportable):
     return slices[0] if slices else None
 
   def __unicode__(self):
-    return u'<Slice (id="%s", name="%s", rect=%s)>' % (self.id, self.name, self.rect)
+    return '<Slice (id="%s", name="%s", rect=%s)>' % (self.id, self.name, self.rect)
 
 
 class Artboard(SketchExportable):
@@ -87,4 +87,4 @@ class Artboard(SketchExportable):
     return artboards[0] if artboards else None
 
   def __unicode__(self):
-    return u'<Artboard (id="%s", name="%s", rect=%s)>' % (self.id, self.name, self.rect)
+    return '<Artboard (id="%s", name="%s", rect=%s)>' % (self.id, self.name, self.rect)

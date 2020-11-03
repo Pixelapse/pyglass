@@ -18,11 +18,11 @@ from distutils.dir_util import copy_tree
 
 # Package modules
 if sys.version_info[:2] < (2, 7):
-  print "Sorry, pyglass requires python version 2.7 or later"
+  print("Sorry, pyglass requires python version 2.7 or later")
   sys.exit(1)
 
 if platform.system() != 'Darwin':
-  print "Sorry, pyglass only runs on OS X"
+  print("Sorry, pyglass only runs on OS X")
   sys.exit(1)
 
 

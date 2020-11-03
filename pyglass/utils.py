@@ -15,14 +15,14 @@ def execute(cmd):
   try:
     return safely_decode(check_output(cmd))
   except Exception as e:
-    logger.warn(u'Couldnt execute cmd: %s.\nReason: %s' % (cmd, e))
+    logger.warn('Couldnt execute cmd: %s.\nReason: %s' % (cmd, e))
     return None
 
 
 def unicode_or_none(dictionary, key):
   if dictionary is None or key is None:
     return None
-  return None if key not in dictionary or dictionary[key] is None else unicode(dictionary[key])
+  return None if key not in dictionary or dictionary[key] is None else str(dictionary[key])
 
 
 def extension(path_str):

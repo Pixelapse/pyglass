@@ -20,10 +20,10 @@ class ExportMimeType:
 class GenericObject(object):
   ''' Base class for any generic object '''
   def __unicode__(self):
-    return u'<GenericObject>'
+    return '<GenericObject>'
 
   def __str__(self):
-    return safely_encode(unicode(self))
+    return safely_encode(str(self))
 
   def __repr__(self):
     try:
