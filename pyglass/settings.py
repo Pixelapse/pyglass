@@ -16,7 +16,7 @@ def make_executable(path_str):
     mode = os.stat(path_str).st_mode
     os.chmod(path_str, mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
   except Exception as e:
-    print 'Exception: %s' % e
+    print('Exception: %s' % e)
     return None
   return path_str
 

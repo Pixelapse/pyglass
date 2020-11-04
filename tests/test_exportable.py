@@ -54,13 +54,13 @@ class TestSketchExportable(BaseTestCase):
   def _test_sketch_exportable(self, exportable):
     ''' Tests for the existence of SketchExportable class parameters '''
     self.assertIsNotNone(exportable.id)
-    self.assertIsInstance(exportable.id, unicode)
+    self.assertIsInstance(exportable.id, str)
 
     self.assertIsNotNone(exportable.name)
-    self.assertIsInstance(exportable.name, unicode)
+    self.assertIsInstance(exportable.name, str)
 
     self.assertIsNotNone(exportable.filename)
-    self.assertIsInstance(exportable.filename, basestring)
+    self.assertIsInstance(exportable.filename, str)
 
   def _test_page(self, page):
     ''' Tests for the existence of Page class parameters '''

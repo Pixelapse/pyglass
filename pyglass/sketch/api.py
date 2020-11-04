@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 def is_sketchfile(src_path):
   ''' Returns True if src_path is a sketch file '''
-  if extension(src_path) == u'.sketch':
+  if extension(src_path) == '.sketch':
     return True
   return False
 
@@ -29,12 +29,12 @@ def list_cmd(cmd, src_path):
   '''
   cmd.extend([src_path])
 
-  logger.debug(u'Executing cmd: %s' % cmd)
+  logger.debug('Executing cmd: %s' % cmd)
   result = execute(cmd)
   if not result:
     return None
 
-  logger.debug(u'Raw result: %s' % result)
+  logger.debug('Raw result: %s' % result)
   list_dict = json.loads(result)
   pages = parse_pages(src_path, list_dict)
   return pages

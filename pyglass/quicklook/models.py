@@ -11,7 +11,7 @@ class QLExportable(Exportable):
     super(QLExportable, self).__init__()
 
   def __unicode__(self):
-    return u'<QLExportable>'
+    return '<QLExportable>'
 
 
 def Page(QLExportable):

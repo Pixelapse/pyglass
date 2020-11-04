@@ -42,9 +42,9 @@ def export_cmd(cmd, src_path, dest_dir=None, item_id=None, export_format=None, s
   if item_id:
     cmd.extend(['--items=%s' % item_id])
 
-  logger.debug(u'Executing cmd: %s' % cmd)
+  logger.debug('Executing cmd: %s' % cmd)
   exported_str = execute(cmd)
-  logger.debug(u'Raw result: %s' % exported_str)
+  logger.debug('Raw result: %s' % exported_str)
   # Raw result is in the form: 'Exported <item-name-1>\nExported <item-name-2>\n'
 
   exported_items = [os.path.join(dirpath, f)
