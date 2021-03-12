@@ -81,7 +81,7 @@ setup(
   maintainer_email='hello@pixelapse.com',
   packages=find_packages(),
   package_data={'': package_libs},
-  python_requires='>=3'
+  python_requires='>=3',
   install_requires=['pxprocess', 'pyunicode', 'PyPDF2'],
   include_package_data=True,
   zip_safe=False,
